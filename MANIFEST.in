@@ -1,0 +1,6 @@
+recursive-include docs *
+recursive-include redturtle *
+global-exclude *pyc
+include *.py
+include buildout.cfg
+prune redturtle/bandi/browser/css/.sass-cache

@@ -1,0 +1,8 @@
+Changelog
+=========
+
+1.0.0 (Unreleased)
+------------------
+
+- Start new project from old rer.bandi implementation (3.x)
+  [cekk]
