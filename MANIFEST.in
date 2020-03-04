@@ -4,3 +4,8 @@ global-exclude *pyc
 include *.py
 include buildout.cfg
 prune redturtle/bandi/browser/css/.sass-cache
+
+exclude .python-version
+exclude constraints.txt
+excludeconstraints_plone52.txt
+exclude requirements.txt
