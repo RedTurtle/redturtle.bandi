@@ -8,6 +8,21 @@ __ http://pypi.python.org/pypi/rer.bandi
 
 It allows to set some infos about the announcement like the deadline to participate or the closing date.
 
+
+Migration from rer.bandi
+========================
+
+If you need to migrate rer.bandi -> redturtle.bandi, follow these instructions:
+
+- Copy bandi settings somewhere
+- Add both products in the buildout
+- Uninstall rer.bandi
+- Install redturtle.bandi
+- Fill Bandi control panel with old settings
+- Call "migrate-from-rer" view on the Plone site root (this view will change the base classe of already created Bando and Folder Deepening items, and clean history)
+- Remove rer.bandi from buildout
+
+
 Composition
 ===========
 
@@ -54,7 +69,7 @@ A default authority value can be set for announcements. This information is take
 If the property is empty, the default value isn't set.
 
 Tile
-----
+====
 
 In order to use layout bandi for tile is necessary have installed collective.tiles.collection product.
 
