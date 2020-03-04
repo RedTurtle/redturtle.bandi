@@ -8,7 +8,7 @@
         permission="zope2.View"
         for="*"
         class=".bandi_render.View"
-        layer="collective.tiles.collection.interfaces.ICollectiveTilesCollectionLayer"
+        layer="redturtle.bandi.interfaces.browserlayer.IRedturtleBandiLayer"
         template="bandi_render.pt"
     />
 

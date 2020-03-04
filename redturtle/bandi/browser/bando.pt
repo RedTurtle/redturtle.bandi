@@ -43,7 +43,7 @@
                                 </div>
                             </td>
                         </tr>
-		                <tr>
+		                <tr tal:condition="context/tipologia_bando">
 		                  <th i18n:translate="tipologia_bando_label">Announcement type</th>
 		                  <td tal:content="python:view.voc_tipologia.getTermByToken(context.tipologia_bando).title">
 		                    Tipologia bando

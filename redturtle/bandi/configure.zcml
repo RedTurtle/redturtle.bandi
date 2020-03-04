@@ -72,11 +72,6 @@
     />
 
   <utility
-    name="redturtle.bandi.tipologia.vocabulary_complete"
-    component=".vocabularies.TipologiaBandoCompleteVocabularyFactory"
-    />
-
-  <utility
     name="redturtle.bandi.destinatari.vocabulary"
     component=".vocabularies.DestinatariVocabulary"
     />

@@ -64,7 +64,7 @@ class BandoView(BrowserView):
         self.context = context
         self.request = request
         self.voc_tipologia = getUtility(
-            IVocabularyFactory, name='redturtle.bandi.tipologia.vocabulary_complete'
+            IVocabularyFactory, name='redturtle.bandi.tipologia.vocabulary'
         )(self.context)
 
     def retrieveFolderDeepening(self):

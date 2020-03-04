@@ -39,4 +39,9 @@ class IBandoSettings(Interface):
         required=False,
         value_type=schema.TextLine(),
         missing_value=None,
+        default=(
+            u'beni_servizi|Acquisizione beni e servizi',
+            u'agevolazioni|Agevolazioni, finanziamenti, contributi',
+            u'altro|Altro',
+        ),
     )

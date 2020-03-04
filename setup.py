@@ -10,7 +10,7 @@ version = '1.0.0.dev0'
 setup(
     name='redturtle.bandi',
     version=version,
-    description="A product for announcements management",
+    description="A product for announcements management based on rer.bandi",
     long_description=open("README.rst").read()
     + "\n"
     + open(os.path.join("docs", "HISTORY.txt")).read(),
@@ -18,14 +18,11 @@ setup(
     # http://pypi.python.org/pypi?:action=list_classifiers
     classifiers=[
         "Environment :: Web Environment",
-        "Framework :: Plone :: 5.1",
         "Framework :: Plone :: 5.2",
         "Framework :: Plone :: Addon",
         "Framework :: Plone",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python",
     ],
@@ -48,7 +45,7 @@ setup(
         'setuptools',
         'lxml',
         'plone.restapi',
-        # 'rer.bandi>4.0.0',
+        'collective.tiles.collection',
     ],
     extras_require={
         'test': [
