@@ -4,7 +4,7 @@ body#visual-portal-wrapper {
             #edit-zone {
                 .contenttype-bando:after {
                     content: "";
-                    background-image: url("/++plone++rer.bandi.images/bando_icon.svg");
+                    background-image: url("/++plone++redturtle.bandi.images/bando_icon.svg");
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: 1em;
@@ -171,21 +171,21 @@ h2.bandoTitle,
     }
 
     .state-open {
-        background-image: url(++plone++rer.bandi.images/bando_open.png);
+        background-image: url(++plone++redturtle.bandi.images/bando_open.png);
         // color: #255a01;
         // border-color: #27af0f;
         color: #1c2024;
     }
 
     .state-inProgress {
-        background-image: url(++plone++rer.bandi.images/bando_inprogress.png);
+        background-image: url(++plone++redturtle.bandi.images/bando_inprogress.png);
         // color: #9c6f02;
         // border-color: #e5c001;
         color: #1c2024;
     }
 
     .state-closed {
-        background-image: url(++plone++rer.bandi.images/bando_closed.png);
+        background-image: url(++plone++redturtle.bandi.images/bando_closed.png);
         // color: #700;
         // border-color: #c00;
         color: #1c2024;
