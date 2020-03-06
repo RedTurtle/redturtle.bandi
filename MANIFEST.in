@@ -3,6 +3,7 @@ recursive-include redturtle *
 global-exclude *pyc
 include *.py
 include buildout.cfg
+include *.txt
 prune redturtle/bandi/browser/css/.sass-cache
 
 exclude .python-version
