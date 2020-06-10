@@ -5,10 +5,10 @@ This module contains the tool of redturtle.bandi
 import os
 from setuptools import setup, find_packages
 
-version = '1.0.1.dev0'
+version = "1.0.1.dev0"
 
 setup(
-    name='redturtle.bandi',
+    name="redturtle.bandi",
     version=version,
     description="A product for announcements management based on rer.bandi",
     long_description=open("README.rst").read()
@@ -19,46 +19,48 @@ setup(
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 5.1",
         "Framework :: Plone :: Addon",
         "Framework :: Plone",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python",
     ],
-    keywords='redturtle bandi announcements',
-    author='RedTurtle Technology',
-    author_email='sviluppoplone@redturtle.it',
-    url='https://github.com/PloneGov-IT/redturtle.bandi',
+    keywords="redturtle bandi announcements",
+    author="RedTurtle Technology",
+    author_email="sviluppoplone@redturtle.it",
+    url="https://github.com/PloneGov-IT/redturtle.bandi",
     project_urls={
-        'PyPI': 'https://pypi.python.org/pypi/redturtle.bandi',
-        'Source': 'https://github.com/RedTurtle/redturtle.bandi',
-        'Tracker': 'https://github.com/RedTurtle/redturtle.bandi/issues',
+        "PyPI": "https://pypi.python.org/pypi/redturtle.bandi",
+        "Source": "https://github.com/RedTurtle/redturtle.bandi",
+        "Tracker": "https://github.com/RedTurtle/redturtle.bandi/issues",
         # 'Documentation': 'https://redturtle.bandi.readthedocs.io/en/latest/',
     },
-    license='GPL',
-    packages=find_packages(exclude=['ez_setup']),
-    namespace_packages=['redturtle'],
+    license="GPL",
+    packages=find_packages(exclude=["ez_setup"]),
+    namespace_packages=["redturtle"],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'setuptools',
-        'lxml',
-        'plone.restapi',
-        'collective.tiles.collection',
+        "setuptools",
+        "lxml",
+        "plone.restapi",
+        "collective.tiles.collection",
     ],
     extras_require={
-        'test': [
-            'plone.app.testing',
+        "test": [
+            "plone.app.testing",
             # Plone KGS does not use this version, because it would break
             # Remove if your package shall be part of coredev.
             # plone_coredev tests as of 2016-04-01.
-            'plone.testing>=5.0.0',
-            'plone.app.contenttypes',
-            'plone.app.robotframework[debug]',
+            "plone.testing>=5.0.0",
+            "plone.app.contenttypes",
+            "plone.app.robotframework[debug]",
         ]
     },
-    test_suite='redturtle.bandi.tests.test_docs.test_suite',
+    test_suite="redturtle.bandi.tests.test_docs.test_suite",
     entry_points="""
       # -*- entry_points -*-
       [z3c.autoinclude.plugin]

@@ -4,7 +4,8 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Test compatibility with Plone 5.1.0
+  [eikichi18]
 
 
 1.0.0 (2020-03-06)
