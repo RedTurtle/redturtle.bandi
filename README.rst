@@ -19,7 +19,7 @@ If you need to migrate rer.bandi -> redturtle.bandi, follow these instructions:
 - Uninstall rer.bandi
 - Install redturtle.bandi
 - Fill Bandi control panel with old settings
-- Call "migrate-from-rer" view on the Plone site root (this view will change the base classe of already created Bando and Folder Deepening items, and clean history)
+- Call "migration-from-re" view on the Plone site root (this view will change the base classe of already created Bando and Folder Deepening items, and clean history)
 - Remove rer.bandi from buildout
 
 
