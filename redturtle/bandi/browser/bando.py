@@ -110,8 +110,8 @@ class BandoView(BrowserView):
                 )
                 if obj.Type == 'Link':
                     dictfields['url'] = obj.getRemoteUrl
-                if obj.Type == 'File':
-                    dictfields['url'] = obj.getURL() + "/download/file"
+                elif obj.Type == 'File':
+                    dictfields['url'] = obj.getURL() + "/@@download/file"
                     # obj_file=obj.getObject().getFile()
                     obj_file = obj.getObject().file
                     # if obj_file.meta_type=='ATBlob':
