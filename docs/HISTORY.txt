@@ -4,7 +4,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Make some micro fix in bando view when search for attachments in
+  deepening folder
+  [lucabel]
 
 
 1.0.0 (2020-03-06)
