@@ -74,7 +74,7 @@
                 <tal:items repeat="t_tipo view/terms_tipologia">
                 <input class="noborder"
                        type="checkbox"
-                       name="getTipologia_bando"
+                       name="tipologia_bando"
                        checked="checked"
                        tal:attributes="value t_tipo/token;
                                        id python:'tipol_%s' % t_tipo.token" />
@@ -96,7 +96,7 @@
                 <tal:items repeat="t_dest view/terms_destinatari">
                 <input class="noborder"
                        type="checkbox"
-                       name="getDestinatariBando"
+                       name="destinatari_bando"
                        tal:attributes="value t_dest/token;
                                        id python:'tipol_%s' % t_dest.token" />
                 <label tal:attributes="for python:'tipol_%s'% t_dest.token"
@@ -117,11 +117,11 @@
                 keywords.
                 </div>
 
-                <select name="getEnte_bando:list"
-                        id="getEnte_bando"
+                <select name="ente_bando:list"
+                        id="ente_bando"
                         size="7"
                         multiple="multiple"
-                        tal:define="usedEnti python:view.getUniqueValuesForIndex('getEnte_bando');"
+                        tal:define="usedEnti python:view.getUniqueValuesForIndex('ente_bando');"
                         >
                     <option tal:condition="default_ente"
                             tal:content="default_ente"

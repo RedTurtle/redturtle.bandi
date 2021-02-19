@@ -19,14 +19,14 @@ class AddForm(add.DefaultAddForm):
         add.DefaultAddForm.updateWidgets(self)
 
         for group in self.groups:
-            if group.label == 'Settings':
+            if group.label == "Settings":
 
                 manager = field.Fields(group.fields)
                 group.fields = manager.select(
-                    'IShortName.id',
-                    'IAllowDiscussion.allow_discussion',
-                    'IExcludeFromNavigation.exclude_from_nav',
-                    'ITableOfContents.table_of_contents',
+                    "IShortName.id",
+                    "IAllowDiscussion.allow_discussion",
+                    "IExcludeFromNavigation.exclude_from_nav",
+                    "ITableOfContents.table_of_contents",
                 )
 
 
@@ -39,14 +39,14 @@ class EditForm(edit.DefaultEditForm):
         edit.DefaultEditForm.updateWidgets(self)
 
         for group in self.groups:
-            if group.label == 'Settings':
+            if group.label == "Settings":
 
                 manager = field.Fields(group.fields)
                 group.fields = manager.select(
-                    'IShortName.id',
-                    'IAllowDiscussion.allow_discussion',
-                    'IExcludeFromNavigation.exclude_from_nav',
-                    'ITableOfContents.table_of_contents',
+                    "IShortName.id",
+                    "IAllowDiscussion.allow_discussion",
+                    "IExcludeFromNavigation.exclude_from_nav",
+                    "ITableOfContents.table_of_contents",
                 )
 
 
@@ -64,7 +64,7 @@ class BandoView(BrowserView):
         self.context = context
         self.request = request
         self.voc_tipologia = getUtility(
-            IVocabularyFactory, name='redturtle.bandi.tipologia.vocabulary'
+            IVocabularyFactory, name="redturtle.bandi.tipologia.vocabulary"
         )(self.context)
 
     def retrieveFolderDeepening(self):
@@ -74,7 +74,7 @@ class BandoView(BrowserView):
         values = []
         dfolders = struct_doc.getFolderContents(
             contentFilter={
-                'object_provides': IBandoFolderDeepening.__identifier__
+                "object_provides": IBandoFolderDeepening.__identifier__
             }
         )
         for df in dfolders:
@@ -95,10 +95,10 @@ class BandoView(BrowserView):
 
         values = []
         objs = self.context.portal_catalog(
-            path={'query': path_dfolder, 'depth': 1},
-            sort_on='getObjPositionInParent',
+            path={"query": path_dfolder, "depth": 1},
+            sort_on="getObjPositionInParent",
         )
-        pp = getToolByName(self.context, 'portal_properties')
+        pp = getToolByName(self.context, "portal_properties")
 
         for obj in objs:
             if not obj.getPath() == path_dfolder and not obj.exclude_from_nav:
@@ -108,10 +108,10 @@ class BandoView(BrowserView):
                     url=obj.getURL(),
                     path=obj.getPath(),
                 )
-                if obj.Type == 'Link':
-                    dictfields['url'] = obj.getRemoteUrl
-                elif obj.Type == 'File':
-                    dictfields['url'] = obj.getURL() + "/@@download/file"
+                if obj.Type == "Link":
+                    dictfields["url"] = obj.getRemoteUrl
+                elif obj.Type == "File":
+                    dictfields["url"] = obj.getURL() + "/@@download/file"
                     # obj_file=obj.getObject().getFile()
                     obj_file = obj.getObject().file
                     # if obj_file.meta_type=='ATBlob':
@@ -119,37 +119,37 @@ class BandoView(BrowserView):
                     # else:
                     #      obj_size=obj_file.getSize()
                     obj_size = obj_file.size
-                    dictfields['filesize'] = self.getSizeString(obj_size)
+                    dictfields["filesize"] = self.getSizeString(obj_size)
                 else:
-                    dictfields['url'] = obj.getURL() + "/view"
+                    dictfields["url"] = obj.getURL() + "/view"
 
                 # icon = getMultiAdapter((self.context, self.request, obj), IContentIcon)
                 # dictfields['icon'] = icon.html_tag()
-                dictfields['type'] = obj.Type
+                dictfields["type"] = obj.Type
                 values.append(dictfields)
 
         return values
 
     def getSizeString(self, size):
-        const = {'kB': 1024, 'MB': 1024 * 1024, 'GB': 1024 * 1024 * 1024}
-        order = ('GB', 'MB', 'kB')
+        const = {"kB": 1024, "MB": 1024 * 1024, "GB": 1024 * 1024 * 1024}
+        order = ("GB", "MB", "kB")
         smaller = order[-1]
         if not size:
-            return '0 %s' % smaller
+            return "0 %s" % smaller
 
         if size < const[smaller]:
-            return '1 %s' % smaller
+            return "1 %s" % smaller
         for c in order:
             if size / const[c] > 0:
                 break
-        return '%.2f %s' % (float(size / float(const[c])), c)
+        return "%.2f %s" % (float(size / float(const[c])), c)
 
     def getDestinatariNames(self):
         """
         Return the values of destinatari vocabulary
         """
         dest_utility = getUtility(
-            IVocabularyFactory, 'redturtle.bandi.destinatari.vocabulary'
+            IVocabularyFactory, "redturtle.bandi.destinatari.vocabulary"
         )
         destinatari = self.context.destinatari
         if not dest_utility:
@@ -185,7 +185,7 @@ class BandoView(BrowserView):
         Return deadline partecipation date
         """
         date = self.context.scadenza_bando
-        long_format = date.strftime('%H:%M:%S') != '00:00:00'
+        long_format = date.strftime("%H:%M:%S") != "00:00:00"
         return api.portal.get_localized_time(
             datetime=date, long_format=long_format
         )
@@ -196,32 +196,32 @@ class BandoView(BrowserView):
         """
         plone = getMultiAdapter((self.context, self.request), name="plone")
         time = self.context.chiusura_procedimento_bando
-        return time.strftime('%d/%m/%Y')
+        return time.strftime("%d/%m/%Y")
 
     def getBandoState(self):
         """
         return corretc bando state
         """
-        scadenza_bando = getattr(self.context, 'scadenza_bando', None)
+        scadenza_bando = getattr(self.context, "scadenza_bando", None)
         chiusura_procedimento_bando = getattr(
-            self.context, 'chiusura_procedimento_bando', None
+            self.context, "chiusura_procedimento_bando", None
         )
-        state = ('open', translate(_(u'Open'), context=self.request))
+        state = ("open", translate(_(u"Open"), context=self.request))
         if scadenza_bando and scadenza_bando < datetime.now():
             if chiusura_procedimento_bando and (
                 chiusura_procedimento_bando < datetime.now().date()
             ):
                 state = (
-                    'closed',
-                    translate(_(u'Closed'), context=self.request),
+                    "closed",
+                    translate(_(u"Closed"), context=self.request),
                 )
             else:
                 state = (
-                    'inProgress',
-                    translate(_(u'In progress'), context=self.request),
+                    "inProgress",
+                    translate(_(u"In progress"), context=self.request),
                 )
         elif chiusura_procedimento_bando and (
             chiusura_procedimento_bando < datetime.now().date()
         ):
-            state = ('closed', translate(_(u'Closed'), context=self.request))
+            state = ("closed", translate(_(u"Closed"), context=self.request))
         return state

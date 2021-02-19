@@ -8,5 +8,5 @@ prune redturtle/bandi/browser/css/.sass-cache
 
 exclude .python-version
 exclude constraints.txt
-excludeconstraints_plone52.txt
+exclude constraints_plone52.txt
 exclude requirements.txt

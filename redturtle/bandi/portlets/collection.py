@@ -22,7 +22,7 @@ class IBandoCollectionPortlet(ICollectionPortlet):
         title=_(u"Other text"),
         description=_(u"Alternative text to show in 'other' link."),
         required=True,
-        default=u'Altro\u2026',
+        default=u"Altro\u2026",
     )
 
     show_more_path = schema.Choice(
@@ -35,19 +35,19 @@ class IBandoCollectionPortlet(ICollectionPortlet):
     )
 
     show_description = schema.Bool(
-        title=u'Mostra descrizione', required=True, default=False
+        title=u"Mostra descrizione", required=True, default=False
     )
 
     show_tipologia_bando = schema.Bool(
-        title=u'Mostra tipologia bando', required=True, default=False
+        title=u"Mostra tipologia bando", required=True, default=False
     )
 
     show_effective = schema.Bool(
-        title=u'Mostra data di pubblicazione', required=True, default=False
+        title=u"Mostra data di pubblicazione", required=True, default=False
     )
 
     show_scadenza_bando = schema.Bool(
-        title=u'Mostra data di scadenza', required=True, default=False
+        title=u"Mostra data di scadenza", required=True, default=False
     )
 
 
@@ -124,12 +124,12 @@ class Renderer(base.Renderer):
     of this class. Other methods can be added and referenced in the template.
     """
 
-    _template = ViewPageTemplateFile('collection.pt')
+    _template = ViewPageTemplateFile("collection.pt")
 
     def __init__(self, *args):
         base.Renderer.__init__(self, *args)
         self.voc_tipologia = getUtility(
-            IVocabularyFactory, name='redturtle.bandi.tipologia.vocabulary'
+            IVocabularyFactory, name="redturtle.bandi.tipologia.vocabulary"
         )(self.context)
 
     # Cached version - needs a proper cache key
@@ -193,7 +193,7 @@ class Renderer(base.Renderer):
         """
         if not date:
             return False
-        if date.Date() == '2100/12/31':
+        if date.Date() == "2100/12/31":
             # a default date for bandi that don't have a defined deadline
             return False
         return True
@@ -227,9 +227,9 @@ class Renderer(base.Renderer):
         return api.content.get(UID=collectionUID)
 
     def getScadenzaDate(self, brain):
-        date = brain.getScadenza_bando
+        date = brain.scadenza_bando
         long_format = True
-        if brain.getScadenza_bando.Time() == '00:00:00':
+        if brain.scadenza_bando.Time() == "00:00:00":
             # indexer add 1 day to this date, to make a bando ends at midnight
             # of the day-after, if time is not provided
             date = date - 1
@@ -240,7 +240,7 @@ class Renderer(base.Renderer):
 
     def portal(self):
         portal_state = getMultiAdapter(
-            (self.context, self.request), name=u'plone_portal_state'
+            (self.context, self.request), name=u"plone_portal_state"
         )
         return portal_state.portal()
 
@@ -248,22 +248,22 @@ class Renderer(base.Renderer):
         """
         return corretc bando state
         """
-        scadenza_bando = bando.getScadenza_bando
-        chiusura_procedimento_bando = bando.getChiusura_procedimento_bando
-        state = ('open', translate(_(u'Open'), context=self.request))
+        scadenza_bando = bando.scadenza_bando
+        chiusura_procedimento_bando = bando.chiusura_procedimento_bando
+        state = ("open", translate(_(u"Open"), context=self.request))
         if scadenza_bando and scadenza_bando.isPast():
             if (
                 chiusura_procedimento_bando
                 and chiusura_procedimento_bando.isPast()
             ):
                 state = (
-                    'closed',
-                    translate(_(u'Closed'), context=self.request),
+                    "closed",
+                    translate(_(u"Closed"), context=self.request),
                 )
             else:
                 state = (
-                    'inProgress',
-                    translate(_(u'In progress'), context=self.request),
+                    "inProgress",
+                    translate(_(u"In progress"), context=self.request),
                 )
         else:
             if (
@@ -271,18 +271,18 @@ class Renderer(base.Renderer):
                 and chiusura_procedimento_bando.isPast()
             ):
                 state = (
-                    'closed',
-                    translate(_(u'Closed'), context=self.request),
+                    "closed",
+                    translate(_(u"Closed"), context=self.request),
                 )
 
         return state
 
     def has_effective_date(self, bando):
-        if bando.EffectiveDate() == 'None':
+        if bando.EffectiveDate() == "None":
             return False
         else:
             effective_date = bando.effective.Date()
-            return effective_date != 'None' and effective_date != "1969/12/31"
+            return effective_date != "None" and effective_date != "1969/12/31"
 
 
 class AddForm(formhelper.AddForm):
