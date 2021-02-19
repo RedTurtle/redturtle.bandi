@@ -15,43 +15,43 @@ def dateToDatetime(d):
 
 @indexer(IBando)
 def destinatari_bando(object, **kw):
-    return getattr(object, 'destinatari', None)
+    return getattr(object, "destinatari", None)
 
 
 @indexer(IBando)
-def getChiusura_procedimento_bando(object, **kw):
+def chiusura_procedimento_bando(object, **kw):
 
     date_chiusura_procedimento_bando = getattr(
-        object, 'chiusura_procedimento_bando', None
+        object, "chiusura_procedimento_bando", None
     )
     if date_chiusura_procedimento_bando:
         datetime_chiusura_procedimento_bando = dateToDatetime(
             date_chiusura_procedimento_bando
         )
     else:
-        return DateTime('2100/12/31')
+        return DateTime("2100/12/31")
 
     if datetime_chiusura_procedimento_bando:
         return DateTime(datetime_chiusura_procedimento_bando)
 
 
 @indexer(IBando)
-def getScadenza_bando(object, **kw):
-    datetime_scadenza_bando = getattr(object, 'scadenza_bando', None)
+def scadenza_bando(object, **kw):
+    datetime_scadenza_bando = getattr(object, "scadenza_bando", None)
     if not datetime_scadenza_bando:
-        return DateTime('2100/12/31')
+        return DateTime("2100/12/31")
     zope_dt_scadenza_bando = DateTime(datetime_scadenza_bando)
-    if zope_dt_scadenza_bando.Time() == '00:00:00':
+    if zope_dt_scadenza_bando.Time() == "00:00:00":
         return zope_dt_scadenza_bando + 1
     else:
         return zope_dt_scadenza_bando
 
 
 @indexer(IBando)
-def getEnte_bando(object, **kw):
-    return getattr(object, 'ente_bando', None)
+def ente_bando(object, **kw):
+    return getattr(object, "ente_bando", None)
 
 
 @indexer(IBando)
-def getTipologia_bando(object, **kw):
-    return getattr(object, 'tipologia_bando', None)
+def tipologia_bando(object, **kw):
+    return getattr(object, "tipologia_bando", None)

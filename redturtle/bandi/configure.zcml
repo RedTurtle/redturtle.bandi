@@ -51,20 +51,12 @@
       />
 
   <genericsetup:registerProfile
-      name="migrate_to_2200"
-      title="Migrate to version 2.2.0"
-      directory="profiles/migrate_to_2200"
-      description="Redturtle:Bandi migrate to version 2.2.0 (2200)"
+      name="migrate_to_1100"
+      title="Migrate to version 1100"
+      directory="profiles/migrate_to_1100"
+      description="RedTurtle Bandi migrate to version 1100"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-
-  <genericsetup:importStep
-      name="redturtle.bandi"
-      title="Redturtle: Bandi configuration"
-      description="Configures bandi properties"
-      handler="redturtle.bandi.setuphandlers.import_various"
-      />
-  <!-- -*- extra stuff goes here -*- -->
   <!-- registro i vocabolari -->
   <utility
     name="redturtle.bandi.tipologia.vocabulary"
@@ -81,12 +73,11 @@
     component=".vocabularies.EnteVocabulary"
     />
 
-  <!-- indexer per i destinatari -->
-  <adapter name="getDestinatariBando" factory=".indexer.destinatari_bando" />
-  <adapter name="getChiusura_procedimento_bando" factory=".indexer.getChiusura_procedimento_bando" />
-  <adapter name="getScadenza_bando" factory=".indexer.getScadenza_bando" />
-  <adapter name="getEnte_bando" factory=".indexer.getEnte_bando" />
-  <adapter name="getTipologia_bando" factory=".indexer.getTipologia_bando" />
-  <!-- <adapter name="SearchableText" factory=".indexer.SearchableTextBandi" /> -->
+  <!-- indexers -->
+  <adapter name="destinatari_bando" factory=".indexer.destinatari_bando" />
+  <adapter name="chiusura_procedimento_bando" factory=".indexer.chiusura_procedimento_bando" />
+  <adapter name="scadenza_bando" factory=".indexer.scadenza_bando" />
+  <adapter name="ente_bando" factory=".indexer.ente_bando" />
+  <adapter name="tipologia_bando" factory=".indexer.tipologia_bando" />
 
 </configure>
