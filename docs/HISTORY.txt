@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.1 (unreleased)
+1.1.1 (2021-02-19)
 ------------------
 
 - Controlpanel also available for plone.restapi.
