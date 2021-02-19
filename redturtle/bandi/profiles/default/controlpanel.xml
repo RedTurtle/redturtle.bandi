@@ -16,5 +16,4 @@
             i18n:attributes="title">
                 <permission>Manage portal</permission>
         </configlet>
-
 </object>
