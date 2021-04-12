@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.2 (unreleased)
+1.1.2 (2021-04-12)
 ------------------
 
 - Fix typo in upgrade-step for 1.1.0 version.
