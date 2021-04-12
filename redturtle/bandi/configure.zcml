@@ -52,9 +52,9 @@
       />
 
   <genericsetup:registerProfile
-      name="migrate_to_1100"
+      name="to_1100"
       title="Migrate to version 1100"
-      directory="profiles/migrate_to_1100"
+      directory="profiles/to_1100"
       description="RedTurtle Bandi migrate to version 1100"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />

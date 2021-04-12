@@ -64,3 +64,11 @@ def migrate_to_1100(context):
             )
         )
     logger.info("Upgrade to 3100 complete")
+
+
+def migrate_to_1200(context):
+    """
+    Fix typo in upgrade-step
+    """
+    PROFILE_ID = "profile-redturtle.bandi:to_1100"
+    context.runAllImportStepsFromProfile(PROFILE_ID)

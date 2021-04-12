@@ -4,7 +4,8 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix typo in upgrade-step for 1.1.0 version.
+  [cekk]
 
 
 1.1.1 (2021-02-19)
