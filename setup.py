@@ -5,7 +5,7 @@ This module contains the tool of redturtle.bandi
 import os
 from setuptools import setup, find_packages
 
-version = '1.1.2'
+version = '1.1.3.dev0'
 
 setup(
     name='redturtle.bandi',
