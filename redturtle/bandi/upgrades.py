@@ -87,16 +87,16 @@ def migrate_to_1300(context):
     tot_results = len(bandi)
     logger.info("### Fixing {tot} Bandi ###".format(tot=tot_results))
     for counter, brain in enumerate(bandi):
-
         bando = brain.getObject()
         if not getattr(bando, "scadenza_bando", None):
             continue
         try:
             bando.scadenza_bando = tz.localize(bando.scadenza_bando)
-            bando.reindexObject(idxs=["scadenza_bando"])
         except ValueError:
             #  already not naive datetime object
-            continue
+            bando.scadenza_bando = bando.scadenza_bando.astimezone(tz)
+        bando.reindexObject(idxs=["scadenza_bando"])
+
         logger.info(
             "[{counter}/{tot}] - {bando}".format(
                 counter=counter + 1, tot=tot_results, bando=brain.getPath()
