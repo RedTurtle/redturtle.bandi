@@ -194,20 +194,23 @@ class BandoView(BrowserView):
         """
         Return Annoucement close date
         """
-        plone = getMultiAdapter((self.context, self.request), name="plone")
         time = self.context.chiusura_procedimento_bando
         return time.strftime("%d/%m/%Y")
 
     def getBandoState(self):
         """
-        return corretc bando state
+        return right bando state
         """
         scadenza_bando = getattr(self.context, "scadenza_bando", None)
         chiusura_procedimento_bando = getattr(
             self.context, "chiusura_procedimento_bando", None
         )
+
         state = ("open", translate(_(u"Open"), context=self.request))
-        if scadenza_bando and scadenza_bando < datetime.now():
+        if not scadenza_bando and not chiusura_procedimento_bando:
+            return state
+        scadenza_tz = getattr(scadenza_bando, "tzinfo", None)
+        if scadenza_bando and scadenza_bando < datetime.now(scadenza_tz):
             if chiusura_procedimento_bando and (
                 chiusura_procedimento_bando < datetime.now().date()
             ):
