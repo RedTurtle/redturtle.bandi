@@ -91,10 +91,17 @@ def migrate_to_1300(context):
         if not getattr(bando, "scadenza_bando", None):
             continue
         try:
-            bando.scadenza_bando = tz.localize(bando.scadenza_bando)
+            bando.scadenza_bando = pytz.utc.localize(
+                bando.scadenza_bando
+            ).astimezone(tz)
         except ValueError:
-            #  already not naive datetime object
-            bando.scadenza_bando = bando.scadenza_bando.astimezone(tz)
+            # convert to right timezone
+            if bando.scadenza_bando.tzinfo.zone == tz.zone:
+                # same tz, skip
+                continue
+            bando.scadenza_bando = pytz.utc.localize(
+                bando.scadenza_bando.replace(tzinfo=None)
+            ).astimezone(tz)
         bando.reindexObject(idxs=["scadenza_bando"])
 
         logger.info(
