@@ -18,4 +18,13 @@
     destination="1200"
     handler=".upgrades.migrate_to_1200"
     profile="redturtle.bandi:default" />
+  
+  <gs:upgradeStep
+    title="Upgrade redturtle.bandi 1300"
+    description="redturtle.bandi upgrade step"
+    source="1200"
+    destination="1300"
+    handler=".upgrades.migrate_to_1300"
+    profile="redturtle.bandi:default" />
+
   </configure>

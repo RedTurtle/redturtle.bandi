@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from plone import api
+from plone.app.event.base import default_timezone
 from redturtle.bandi import logger
+
+import pytz
 
 default_profile = "profile-redturtle.bandi:default"
 
@@ -72,3 +75,37 @@ def migrate_to_1200(context):
     """
     PROFILE_ID = "profile-redturtle.bandi:to_1100"
     context.runAllImportStepsFromProfile(PROFILE_ID)
+
+
+def migrate_to_1300(context):
+    """
+    Add tzinfo to scadenza_bando
+    """
+    tz = pytz.timezone(default_timezone())
+
+    bandi = api.content.find(portal_type="Bando")
+    tot_results = len(bandi)
+    logger.info("### Fixing {tot} Bandi ###".format(tot=tot_results))
+    for counter, brain in enumerate(bandi):
+        bando = brain.getObject()
+        if not getattr(bando, "scadenza_bando", None):
+            continue
+        try:
+            bando.scadenza_bando = pytz.utc.localize(
+                bando.scadenza_bando
+            ).astimezone(tz)
+        except ValueError:
+            # convert to right timezone
+            if bando.scadenza_bando.tzinfo.zone == tz.zone:
+                # same tz, skip
+                continue
+            bando.scadenza_bando = pytz.utc.localize(
+                bando.scadenza_bando.replace(tzinfo=None)
+            ).astimezone(tz)
+        bando.reindexObject(idxs=["scadenza_bando"])
+
+        logger.info(
+            "[{counter}/{tot}] - {bando}".format(
+                counter=counter + 1, tot=tot_results, bando=brain.getPath()
+            )
+        )
