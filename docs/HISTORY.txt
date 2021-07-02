@@ -4,7 +4,8 @@ Changelog
 1.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- fixed profile name in mgrate_to_1100 upgrade step-
+  [eikichi18]
 
 
 1.2.0 (2021-06-07)

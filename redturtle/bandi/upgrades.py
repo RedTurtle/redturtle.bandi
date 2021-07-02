@@ -9,7 +9,7 @@ default_profile = "profile-redturtle.bandi:default"
 
 
 def migrate_to_1100(context):
-    PROFILE_ID = "profile-redturtle.bandi:migrate_to_1100"
+    PROFILE_ID = "profile-redturtle.bandi:to_1100"
     context.runAllImportStepsFromProfile(PROFILE_ID)
 
     #  update indexes and topics
