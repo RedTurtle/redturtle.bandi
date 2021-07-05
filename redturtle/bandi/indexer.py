@@ -30,7 +30,7 @@ def chiusura_procedimento_bando(object, **kw):
             if (
                 date_chiusura_procedimento_bando.split(" ")
                 and date_chiusura_procedimento_bando != "None"
-            ):``
+            ):
                 date_string = (
                     date_chiusura_procedimento_bando.split(" ")[0]
                     if date_chiusura_procedimento_bando.split(" ")[0]
