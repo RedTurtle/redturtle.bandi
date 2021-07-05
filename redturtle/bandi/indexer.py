@@ -25,6 +25,22 @@ def chiusura_procedimento_bando(object, **kw):
         object, "chiusura_procedimento_bando", None
     )
     if date_chiusura_procedimento_bando:
+        if isinstance(date_chiusura_procedimento_bando, str):
+
+            if (
+                date_chiusura_procedimento_bando.split(" ")
+                and date_chiusura_procedimento_bando != "None"
+            ):``
+                date_string = (
+                    date_chiusura_procedimento_bando.split(" ")[0]
+                    if date_chiusura_procedimento_bando.split(" ")[0]
+                    else "2100/12/31"
+                )
+                date_chiusura_procedimento_bando = datetime.strptime(
+                    date_string, "%Y/%m/%d"
+                )  # get just Y/m/d
+            else:
+                return DateTime("2100/12/31")
         datetime_chiusura_procedimento_bando = dateToDatetime(
             date_chiusura_procedimento_bando
         )
