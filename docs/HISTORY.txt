@@ -6,7 +6,8 @@ Changelog
 
 - fixed profile name in mgrate_to_1100 upgrade step-
   [eikichi18]
-
+- Remove DateField deserializer customization (already used in redturtle.volto).
+  [cekk]
 
 1.2.0 (2021-06-07)
 ------------------
