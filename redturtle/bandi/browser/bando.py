@@ -122,7 +122,7 @@ class BandoView(BrowserView):
                     dictfields["filesize"] = self.getSizeString(obj_size)
                 else:
                     dictfields["url"] = obj.getURL() + "/view"
-
+                dictfields["content-type"] = obj.mime_type
                 # icon = getMultiAdapter((self.context, self.request, obj), IContentIcon)
                 # dictfields['icon'] = icon.html_tag()
                 dictfields["type"] = obj.Type
@@ -140,7 +140,7 @@ class BandoView(BrowserView):
         if size < const[smaller]:
             return "1 %s" % smaller
         for c in order:
-            if size / const[c] > 0:
+            if int(size / const[c]) > 0:
                 break
         return "%.2f %s" % (float(size / float(const[c])), c)
 
