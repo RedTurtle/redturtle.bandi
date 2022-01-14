@@ -29,3 +29,4 @@ src/
 var/
 local/
 .sass-cache/
+redturtle/bandi/locales/__pycache__/
