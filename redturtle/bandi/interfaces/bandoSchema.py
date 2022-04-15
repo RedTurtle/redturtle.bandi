@@ -12,9 +12,12 @@ from redturtle.bandi import bandiMessageFactory as _
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from z3c.form.browser.radio import RadioFieldWidget
 from zope import schema
+from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
 
 
-def getDefaultEnte():
+@provider(IContextAwareDefaultFactory)
+def getDefaultEnte(context):
     default_ente = api.portal.get_registry_record(
         "redturtle.bandi.interfaces.settings.IBandoSettings.default_ente"
     )

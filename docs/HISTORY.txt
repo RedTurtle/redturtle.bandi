@@ -4,8 +4,8 @@ Changelog
 1.3.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix problem with default values and missing
+  IContextAwareDefaultFactory
 
 1.3.2 (2022-01-14)
 ------------------
