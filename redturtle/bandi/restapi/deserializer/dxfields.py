@@ -8,7 +8,7 @@ from plone.restapi.deserializer.dxfields import (
 from plone.restapi.interfaces import IFieldDeserializer
 from pytz import timezone
 from pytz import utc
-from redturtle.volto.interfaces import IRedturtleVoltoLayer
+from redturtle.bandi.interfaces.browserlayer import IRedturtleBandiLayer
 from z3c.form.interfaces import IDataManager
 from zope.component import adapter
 from zope.component import queryMultiAdapter
@@ -20,7 +20,7 @@ import pytz
 
 
 @implementer(IFieldDeserializer)
-@adapter(IDatetime, IBando, IRedturtleVoltoLayer)
+@adapter(IDatetime, IBando, IRedturtleBandiLayer)
 class DatetimeFieldDeserializer(DefaultDatetimeFieldDeserializer):
     def __call__(self, value):
         """ """
