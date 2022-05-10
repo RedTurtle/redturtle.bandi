@@ -82,6 +82,12 @@ Controlpanel
 Bandi controlpanel is also exposed via restapi to allow Volto integration.
 
 
+DateTime fields deserializer
+----------------------------
+
+There is a custom deserializer for DateTime fields to set the right timezone when saving these fields (like start and end in Events).
+
+
 Dependencies
 ============
 

@@ -4,6 +4,8 @@
 
   <configure zcml:condition="installed plone.restapi"> 
     <include package="plone.restapi"  />
+    
+    <include package=".deserializer"  />
     <include package=".services"  />
   </configure>
 
