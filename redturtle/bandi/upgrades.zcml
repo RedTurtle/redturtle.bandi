@@ -27,4 +27,12 @@
     handler=".upgrades.migrate_to_1300"
     profile="redturtle.bandi:default" />
 
+  <gs:upgradeStep
+    title="Revert deserializer for scadenza_bando"
+    description="redo 1300 upgrade step"
+    source="1300"
+    destination="1400"
+    handler=".upgrades.migrate_to_1300"
+    profile="redturtle.bandi:default" />
+
   </configure>
