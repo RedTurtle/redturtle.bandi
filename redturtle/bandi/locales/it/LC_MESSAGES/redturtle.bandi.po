@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-01-14 10:12+0000\n"
+"POT-Creation-Date: 2022-05-18 07:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Filippo Campi <filippo.campi@redturtle.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,9 +37,8 @@ msgstr ""
 msgid "Bandi con tipologia e scadenza"
 msgstr ""
 
-#: redturtle/bandi/browser/bando.py:219
-#: redturtle/bandi/browser/collection.py:70
-#: redturtle/bandi/browser/search.py:173
+#: redturtle/bandi/browser/bando.py:226
+#: redturtle/bandi/portlets/collection.py:261
 msgid "Closed"
 msgstr "Chiuso"
 
@@ -51,9 +50,8 @@ msgstr ""
 msgid "Edit Bandi Portlet"
 msgstr "Modifica Portlet Bandi"
 
-#: redturtle/bandi/browser/bando.py:224
-#: redturtle/bandi/browser/collection.py:75
-#: redturtle/bandi/browser/search.py:178
+#: redturtle/bandi/browser/bando.py:231
+#: redturtle/bandi/portlets/collection.py:266
 msgid "In progress"
 msgstr "In corso"
 
@@ -73,9 +71,8 @@ msgstr ""
 msgid "Mostra altre informazioni a destra"
 msgstr ""
 
-#: redturtle/bandi/browser/bando.py:209
-#: redturtle/bandi/browser/collection.py:62
-#: redturtle/bandi/browser/search.py:165
+#: redturtle/bandi/browser/bando.py:216
+#: redturtle/bandi/portlets/collection.py:253
 msgid "Open"
 msgstr "Aperto"
 
@@ -90,6 +87,10 @@ msgstr ""
 #: redturtle/bandi/configure.zcml:44
 msgid "Redturtle: Bandi"
 msgstr ""
+
+#: redturtle/bandi/browser/bando.py:215
+msgid "Scheduled"
+msgstr "Programmato"
 
 #: redturtle/bandi/browser/configure.zcml:64
 msgid "Sulla destra"
@@ -107,6 +108,17 @@ msgstr ""
 msgid "Vista predefinita, altre informazioni sotto"
 msgstr ""
 
+#. Default: "Date and time of the opening of the announcement. Use this field if you want to set a specific opening date. If not set, the announcement will be open immediately."
+#: redturtle/bandi/interfaces/bandoSchema.py:41
+msgid "apertura_bando_help"
+msgstr "Data e ora dell'apertura del bando. Usa questo campo se vuoi impostare una data di apertura specifica. Se non impostato, il bando sarà aperto immediatamente."
+
+#. Default: "Opening date"
+#: redturtle/bandi/browser/bando.pt:84
+#: redturtle/bandi/interfaces/bandoSchema.py:40
+msgid "apertura_bando_label"
+msgstr "Data di apertura"
+
 #. Default: "Layout Bandi"
 #: redturtle/bandi/tiles/bandi_render.py:11
 msgid "bandi_layout"
@@ -114,13 +126,13 @@ msgstr ""
 
 #. Default: "Published on"
 #: redturtle/bandi/browser/collection.pt:77
-#: redturtle/bandi/browser/search.pt:122
+#: redturtle/bandi/browser/search.pt:124
 #: redturtle/bandi/portlets/collection.pt:46
 msgid "bandi_published_on"
 msgstr "Pubblicato il"
 
 #. Default: "Authorities"
-#: redturtle/bandi/browser/search_form.pt:111
+#: redturtle/bandi/browser/search_form.pt:113
 msgid "bandi_search_authority_label"
 msgstr "Enti"
 
@@ -135,32 +147,33 @@ msgid "bandi_search_label"
 msgstr "Ricerca bandi"
 
 #. Default: "Select announcements recipients."
-#: redturtle/bandi/browser/search_form.pt:92
+#: redturtle/bandi/browser/search_form.pt:94
 msgid "bandi_search_recipients_help"
 msgstr "Seleziona i destinatari dei bandi."
 
 #. Default: "Recipients"
-#: redturtle/bandi/browser/search_form.pt:90
+#: redturtle/bandi/browser/search_form.pt:92
 msgid "bandi_search_recipients_label"
 msgstr "Destinatari"
 
 #. Default: "All"
-#: redturtle/bandi/browser/search_form.pt:59
+#: redturtle/bandi/browser/search_form.pt:60
 msgid "bandi_search_state_all"
 msgstr "Tutti"
 
 #. Default: "Closed"
-#: redturtle/bandi/browser/search_form.pt:62
+#: redturtle/bandi/browser/search_form.pt:64
 msgid "bandi_search_state_closed"
 msgstr "Chiusi"
 
-#. Default: "Search announcements <strong>open</strong> (with participation terms not expired), <strong>in progress</strong> (participation terms expired, but the procedure isn't already closed) or <strong>closed</strong> (the procedure is closed)."
+#. Default: "Search announcements <strong>scheduled</strong> (with open date in the future), <strong>open</strong> (with participation terms not expired), <strong>in progress</strong> (participation terms expired, but the procedure isn't already closed) or <strong>closed</strong> (the procedure is closed)."
 #: redturtle/bandi/browser/search_form.pt:52
+#, fuzzy
 msgid "bandi_search_state_help"
 msgstr "Cerca i bandi <strong>aperti</strong> (non sono scaduti i termini per la partecipazione), <strong>in corso</strong> (sono scaduti i termini di partecipazione e il procedimento non è ancora chiuso) o <strong>chiusi</strong> (il procedimento è chiuso)."
 
 #. Default: "In progress"
-#: redturtle/bandi/browser/search_form.pt:61
+#: redturtle/bandi/browser/search_form.pt:63
 msgid "bandi_search_state_inprogress"
 msgstr "In corso"
 
@@ -170,9 +183,14 @@ msgid "bandi_search_state_label"
 msgstr "Stato"
 
 #. Default: "Open"
-#: redturtle/bandi/browser/search_form.pt:60
+#: redturtle/bandi/browser/search_form.pt:62
 msgid "bandi_search_state_open"
 msgstr "Aperti"
+
+#. Default: "Scheduled"
+#: redturtle/bandi/browser/search_form.pt:61
+msgid "bandi_search_state_scheduled"
+msgstr "Programmati"
 
 #. Default: "For a simple text search, enter your search term here. Multiple words may be found by combining them with <strong>AND</strong> and <strong>OR</strong>. The text in this field will be matched with Announcements' title, description and text."
 #: redturtle/bandi/browser/search_form.pt:35
@@ -185,43 +203,43 @@ msgid "bandi_search_text_label"
 msgstr "Ricerca testuale"
 
 #. Default: "Select an annonuncement type."
-#: redturtle/bandi/browser/search_form.pt:70
+#: redturtle/bandi/browser/search_form.pt:72
 msgid "bandi_search_type_help"
 msgstr "Seleziona una tipologia di bando."
 
 #. Default: "Type"
-#: redturtle/bandi/browser/search_form.pt:68
+#: redturtle/bandi/browser/search_form.pt:70
 msgid "bandi_search_type_label"
 msgstr "Tipologia"
 
 #. Default: "Select where to search."
-#: redturtle/bandi/browser/search_form.pt:182
+#: redturtle/bandi/browser/search_form.pt:184
 msgid "bandi_searchsites_help"
 msgstr "Seleziona i portali dove effettuare la ricerca."
 
 #. Default: "Available sites"
-#: redturtle/bandi/browser/search_form.pt:181
+#: redturtle/bandi/browser/search_form.pt:183
 msgid "bandi_searchsites_label"
 msgstr "Portali disponibili"
 
 #. Default: "If checked, the search will be made on a selected list of ER Sites. If not checked, the search will be made only on this site."
-#: redturtle/bandi/browser/search_form.pt:174
+#: redturtle/bandi/browser/search_form.pt:176
 msgid "bandi_use_solr_help"
 msgstr "Se selezionato, la ricerca verrà effettuata in una serie di portali ER. Se non selezionato, la ricerca verrà effettuata solamente in questo portale."
 
 #. Default: "Multisite search"
-#: redturtle/bandi/browser/search_form.pt:173
+#: redturtle/bandi/browser/search_form.pt:175
 msgid "bandi_use_solr_label"
 msgstr "Ricerca multisito"
 
 #. Default: "Consulta gli approfondimenti"
-#: redturtle/bandi/browser/bando.pt:104
+#: redturtle/bandi/browser/bando.pt:111
 msgid "bando_anchor_foldeeps"
 msgstr ""
 
 #. Default: "Closing process"
 #: redturtle/bandi/browser/bando-right.pt:91
-#: redturtle/bandi/browser/bando.pt:93
+#: redturtle/bandi/browser/bando.pt:100
 msgid "bando_chiusura_procedimento"
 msgstr "Chiusura procedimento"
 
@@ -233,7 +251,7 @@ msgstr "Data di pubblicazione"
 
 #. Default: "Deadline participation terms"
 #: redturtle/bandi/browser/bando-right.pt:83
-#: redturtle/bandi/browser/bando.pt:85
+#: redturtle/bandi/browser/bando.pt:92
 #: redturtle/bandi/browser/collection.pt:85
 msgid "bando_scadenza_partecipazione"
 msgstr "Scadenza termini partecipazione"
@@ -259,12 +277,12 @@ msgstr "${number} elementi soddisfano i criteri specificati"
 msgid "chiusura_procedimento_bando"
 msgstr ""
 
-#: redturtle/bandi/interfaces/bandoSchema.py:42
+#: redturtle/bandi/interfaces/bandoSchema.py:54
 msgid "chiusura_procedimento_bando_help"
 msgstr ""
 
 #. Default: "Closing date procedure"
-#: redturtle/bandi/interfaces/bandoSchema.py:38
+#: redturtle/bandi/interfaces/bandoSchema.py:50
 msgid "chiusura_procedimento_bando_label"
 msgstr "Data chiusura procedimento"
 
@@ -298,26 +316,26 @@ msgstr "Non ci sono elementi."
 msgid "description_no_results_found"
 msgstr "Nessun risultato è stato trovato"
 
-#: redturtle/bandi/interfaces/bandoSchema.py:66
+#: redturtle/bandi/interfaces/bandoSchema.py:78
 msgid "destinatari_help"
 msgstr ""
 
 #. Default: "Recipients"
 #: redturtle/bandi/browser/bando-right.pt:52
 #: redturtle/bandi/browser/bando.pt:54
-#: redturtle/bandi/interfaces/bandoSchema.py:65
+#: redturtle/bandi/interfaces/bandoSchema.py:77
 msgid "destinatari_label"
 msgstr "Destinatari"
 
 #. Default: "Select some authorities."
-#: redturtle/bandi/interfaces/bandoSchema.py:57
+#: redturtle/bandi/interfaces/bandoSchema.py:69
 msgid "ente_help"
 msgstr "Selezionare l'ente proponente del bando."
 
 #. Default: "Authority"
 #: redturtle/bandi/browser/bando-right.pt:63
 #: redturtle/bandi/browser/bando.pt:65
-#: redturtle/bandi/interfaces/bandoSchema.py:56
+#: redturtle/bandi/interfaces/bandoSchema.py:68
 msgid "ente_label"
 msgstr "Ente"
 
@@ -327,12 +345,12 @@ msgid "heading_search_results"
 msgstr "Risultati ricerca bandi"
 
 #. Default: "Return items matching some or all of these authorities. Multiple words may be found by pressing <strong>Ctrl</strong> (or <strong>Apple</strong> key on Mac) while clicking the keywords."
-#: redturtle/bandi/browser/search_form.pt:113
+#: redturtle/bandi/browser/search_form.pt:115
 msgid "help_search_authorities"
 msgstr "Mostra i bandi appartenenti a questi enti. Possono essere selezionati più tag mantenendo premuto il tasto Ctrl (o il tasto Mela sul Mac)."
 
 #. Default: "Search"
-#: redturtle/bandi/browser/search_form.pt:201
+#: redturtle/bandi/browser/search_form.pt:203
 msgid "label_search"
 msgstr "Cerca"
 
@@ -346,22 +364,22 @@ msgid "redturtle.bandi uninstall"
 msgstr ""
 
 #. Default: "indicare la struttura di riferimento e il responsabile del procedimento"
-#: redturtle/bandi/interfaces/bandoSchema.py:33
+#: redturtle/bandi/interfaces/bandoSchema.py:36
 msgid "riferimenti_bando_help"
 msgstr "indicare la struttura di riferimento e il responsabile del procedimento"
 
 #. Default: "References"
-#: redturtle/bandi/interfaces/bandoSchema.py:32
+#: redturtle/bandi/interfaces/bandoSchema.py:35
 msgid "riferimenti_bando_label"
 msgstr "Riferimenti"
 
 #. Default: "Deadline to participate in the announcement"
-#: redturtle/bandi/interfaces/bandoSchema.py:48
+#: redturtle/bandi/interfaces/bandoSchema.py:60
 msgid "scadenza_bando_help"
 msgstr "Scadenza dei termini per partecipare al bando"
 
 #. Default: "Expiration date and time"
-#: redturtle/bandi/interfaces/bandoSchema.py:47
+#: redturtle/bandi/interfaces/bandoSchema.py:59
 msgid "scadenza_bando_label"
 msgstr "Data e ora di scadenza"
 
@@ -370,7 +388,7 @@ msgstr "Data e ora di scadenza"
 msgid "tiles_collection_noresults"
 msgstr "Non sono stati trovati bandi"
 
-#: redturtle/bandi/interfaces/bandoSchema.py:75
+#: redturtle/bandi/interfaces/bandoSchema.py:85
 msgid "tipologia_bando_help"
 msgstr ""
 

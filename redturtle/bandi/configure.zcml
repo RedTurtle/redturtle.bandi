@@ -80,5 +80,5 @@
   <adapter name="scadenza_bando" factory=".indexer.scadenza_bando" />
   <adapter name="ente_bando" factory=".indexer.ente_bando" />
   <adapter name="tipologia_bando" factory=".indexer.tipologia_bando" />
-
+  <adapter name="apertura_bando" factory=".indexer.apertura_bando" />
 </configure>

@@ -28,7 +28,7 @@ def getDefaultEnte(context):
 
 
 class IBandoSchema(model.Schema):
-    """ A Dexterity schema for Annoucements """
+    """A Dexterity schema for Annoucements"""
 
     # fields
     riferimenti_bando = RichText(
@@ -36,7 +36,16 @@ class IBandoSchema(model.Schema):
         description=_("riferimenti_bando_help", default=u""),
         required=False,
     )
-
+    apertura_bando = schema.Datetime(
+        title=_("apertura_bando_label", default=u"Opening date"),
+        description=_(
+            "apertura_bando_help",
+            default=u"Date and time of the opening of the announcement. Use "
+            u"this field if you want to set a specific opening date. "
+            u"If not set, the announcement will be open immediately.",
+        ),
+        required=False,
+    )
     chiusura_procedimento_bando = schema.Date(
         title=_(
             "chiusura_procedimento_bando_label",
@@ -68,9 +77,7 @@ class IBandoSchema(model.Schema):
         title=_("destinatari_label", default=u"Recipients"),
         description=_("destinatari_help", default=""),
         required=True,
-        value_type=schema.Choice(
-            vocabulary="redturtle.bandi.destinatari.vocabulary"
-        ),
+        value_type=schema.Choice(vocabulary="redturtle.bandi.destinatari.vocabulary"),
     )
 
     tipologia_bando = schema.Choice(
@@ -93,6 +100,11 @@ class IBandoSchema(model.Schema):
         "ente_bando",
         AjaxSelectFieldWidget,
         vocabulary="redturtle.bandi.enti.vocabulary",
+    )
+    directives.widget(
+        "apertura_bando",
+        DatetimeFieldWidget,
+        default_timezone=default_timezone,
     )
     directives.widget(
         "chiusura_procedimento_bando",

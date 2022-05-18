@@ -8,6 +8,10 @@ import pytz
 default_profile = "profile-redturtle.bandi:default"
 
 
+def update_catalog(context):
+    context.runImportStepFromProfile(default_profile, "catalog")
+
+
 def migrate_to_1100(context):
     PROFILE_ID = "profile-redturtle.bandi:to_1100"
     context.runAllImportStepsFromProfile(PROFILE_ID)
@@ -91,9 +95,9 @@ def migrate_to_1300(context):
         if not getattr(bando, "scadenza_bando", None):
             continue
         try:
-            bando.scadenza_bando = pytz.utc.localize(
-                bando.scadenza_bando
-            ).astimezone(tz)
+            bando.scadenza_bando = pytz.utc.localize(bando.scadenza_bando).astimezone(
+                tz
+            )
         except ValueError:
             # convert to right timezone
             if bando.scadenza_bando.tzinfo.zone == tz.zone:
@@ -108,4 +112,24 @@ def migrate_to_1300(context):
             "[{counter}/{tot}] - {bando}".format(
                 counter=counter + 1, tot=tot_results, bando=brain.getPath()
             )
+        )
+
+
+def migrate_to_2000(context):
+    update_catalog(context)
+
+    bandi = api.content.find(portal_type="Bando")
+    tot_results = len(bandi)
+    logger.info("### Fixing {tot} Bandi ###".format(tot=tot_results))
+    for counter, brain in enumerate(bandi):
+        logger.info(
+            "[{counter}/{tot}] - {bando}".format(
+                counter=counter + 1, tot=tot_results, bando=brain.getPath()
+            )
+        )
+        bando = brain.getObject()
+        bando.reindexObject(
+            idxs=[
+                "apertura_bando",
+            ]
         )

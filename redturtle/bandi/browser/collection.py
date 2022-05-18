@@ -23,8 +23,7 @@ class CollectionBandiView(BrowserView):
         )(self.context)
 
     def getTipologiaTitle(self, key):
-        """
-        """
+        """ """
         try:
             value = self.voc_tipologia.getTermByToken(key)
             return value.title
@@ -32,8 +31,7 @@ class CollectionBandiView(BrowserView):
             return key
 
     def isValidDeadline(self, date):
-        """
-        """
+        """ """
         if not date:
             return False
         if date.Date() == "2100/12/31":
@@ -49,38 +47,14 @@ class CollectionBandiView(BrowserView):
             # of the day-after, if time is not provided
             date = date - 1
             long_format = False
-        return api.portal.get_localized_time(
-            datetime=date, long_format=long_format
-        )
+        return api.portal.get_localized_time(datetime=date, long_format=long_format)
 
-    def getBandoState(self, bando):
+    def getBandoState(self, brain):
         """
-        return corretc bando state
+        return correct bando state
         """
-        scadenza_bando = bando.scadenza_bando
-        chiusura_procedimento_bando = bando.chiusura_procedimento_bando
-        state = ("open", translate(_(u"Open"), context=self.request))
-        if scadenza_bando and scadenza_bando.isPast():
-            if (
-                chiusura_procedimento_bando
-                and chiusura_procedimento_bando.isPast()
-            ):
-                state = (
-                    "closed",
-                    translate(_(u"Closed"), context=self.request),
-                )
-            else:
-                state = (
-                    "inProgress",
-                    translate(_(u"In progress"), context=self.request),
-                )
-        else:
-            if (
-                chiusura_procedimento_bando
-                and chiusura_procedimento_bando.isPast()
-            ):
-                state = (
-                    "closed",
-                    translate(_(u"Closed"), context=self.request),
-                )
-        return state
+        bando = brain.getObject()
+        view = api.content.get_view(
+            name="bando_view", context=bando, request=self.request
+        )
+        return view.getBandoState()

@@ -35,4 +35,12 @@
     handler=".upgrades.migrate_to_1300"
     profile="redturtle.bandi:default" />
 
+  <gs:upgradeStep
+    title="Add new index for apertura_bando"
+    description=""
+    source="1400"
+    destination="2000"
+    handler=".upgrades.migrate_to_2000"
+    profile="redturtle.bandi:default" />
+
   </configure>

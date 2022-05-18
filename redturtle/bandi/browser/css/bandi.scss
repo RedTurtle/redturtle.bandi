@@ -161,6 +161,7 @@ h2.bandoTitle,
     }
 
     .state-open,
+    .state-scheduled,
     .state-inProgress,
     .state-closed {
         // float: none;
@@ -170,7 +171,8 @@ h2.bandoTitle,
         // border-top: 5px solid;
     }
 
-    .state-open {
+    .state-open,
+    .state-scheduled {
         background-image: url(++plone++redturtle.bandi.images/bando_open.png);
         // color: #255a01;
         // border-color: #27af0f;

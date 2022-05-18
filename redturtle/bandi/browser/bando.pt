@@ -80,7 +80,14 @@
 		                    </tal:pubblicazione>
 		                  </td>
 		                </tr>
-
+                    <tr tal:condition="context/apertura_bando|nothing">
+		                  <th i18n:translate="apertura_bando_label">Opening date</th>
+		                  <td>
+		                    <div tal:replace="view/getOpenDate">
+		                      apertura bando
+		                    </div>
+		                  </td>
+		                </tr>
 		                <tr tal:condition="context/scadenza_bando|nothing">
 		                  <th i18n:translate="bando_scadenza_partecipazione">Deadline participation terms</th>
 		                  <td>

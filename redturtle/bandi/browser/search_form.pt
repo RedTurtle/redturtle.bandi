@@ -50,13 +50,15 @@
               <label i18n:translate="bandi_search_state_label">State</label>
               
 			  <div class="formHelp" i18n:translate="bandi_search_state_help">
-				Search announcements <strong>open</strong> (with participation terms not expired),
+				Search announcements <strong>scheduled</strong> (with open date in the future),
+                <strong>open</strong> (with participation terms not expired),
 				<strong>in progress</strong> (participation terms expired, but the procedure isn't already closed) or
 				<strong>closed</strong> (the procedure is closed).
               </div>
               
 			  <select name="stato_bandi" id="stato_bandi" i18n:domain="redturtle.bandi">
                 <option value="" selected="selected" i18n:translate="bandi_search_state_all">All</option>
+                <option value="scheduled" i18n:translate="bandi_search_state_scheduled">Scheduled</option>
                 <option value="open" i18n:translate="bandi_search_state_open">Open</option>
                 <option value="inProgress" i18n:translate="bandi_search_state_inprogress">In progress</option>
                 <option value="closed" i18n:translate="bandi_search_state_closed">Closed</option>

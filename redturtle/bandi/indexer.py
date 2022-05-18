@@ -48,6 +48,14 @@ def scadenza_bando(object, **kw):
 
 
 @indexer(IBando)
+def apertura_bando(object, **kw):
+    datetime_apertura_bando = getattr(object, "apertura_bando", None)
+    if not datetime_apertura_bando:
+        return DateTime("1100/01/01")
+    return DateTime(datetime_apertura_bando)
+
+
+@indexer(IBando)
 def ente_bando(object, **kw):
     return getattr(object, "ente_bando", None)
 

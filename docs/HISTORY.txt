@@ -4,8 +4,8 @@ Changelog
 1.3.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add new bando state "scheduled" and new field to manage open date.
+  [cekk]
 
 1.3.4 (2022-05-10)
 ------------------
