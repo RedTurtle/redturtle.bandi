@@ -12,6 +12,12 @@ def update_catalog(context):
     context.runImportStepFromProfile(default_profile, "catalog")
 
 
+def update_registry(context):
+    context.runImportStepFromProfile(
+        default_profile, "plone.app.registry", run_dependencies=False
+    )
+
+
 def migrate_to_1100(context):
     PROFILE_ID = "profile-redturtle.bandi:to_1100"
     context.runAllImportStepsFromProfile(PROFILE_ID)
@@ -117,6 +123,7 @@ def migrate_to_1300(context):
 
 def migrate_to_2000(context):
     update_catalog(context)
+    update_registry(context)
 
     bandi = api.content.find(portal_type="Bando")
     tot_results = len(bandi)
