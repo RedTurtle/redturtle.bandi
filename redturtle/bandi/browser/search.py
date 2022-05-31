@@ -1,20 +1,11 @@
 # -*- coding: utf-8 -*-
-
 from DateTime import DateTime
+from plone import api
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from zope.i18n import translate
-from plone import api
-
-from redturtle.bandi import bandiMessageFactory as _
 from six.moves.urllib.parse import quote
-
-try:
-    from zope.app.schema.vocabulary import IVocabularyFactory
-except ImportError:
-    from zope.schema.interfaces import IVocabularyFactory
-
 from zope.component import getUtility, queryUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 try:
     from collective.solr.interfaces import ISolrConnectionConfig
@@ -47,8 +38,7 @@ class SearchBandiForm(BrowserView):
         self.solr_enabled = self.isSolrEnabled()
 
     def isSolrEnabled(self):
-        """
-        """
+        """ """
         if not HAS_SOLR:
             return False
         util = queryUtility(ISolrConnectionConfig)
@@ -94,26 +84,29 @@ class SearchBandi(BrowserView):
         query = self.request.form.copy()
         if stato:
             now = DateTime()
-            if stato == "open":
+            if stato == "scheduled":
+                query["apertura_bando"] = {"query": now, "range": "min"}
+            elif stato == "open":
+                query["apertura_bando"] = {"query": now, "range": "max"}
                 query["scadenza_bando"] = {"query": now, "range": "min"}
                 query["chiusura_procedimento_bando"] = {
                     "query": now,
                     "range": "min",
                 }
-            if stato == "inProgress":
+            elif stato == "inProgress":
+                query["apertura_bando"] = {"query": now, "range": "max"}
                 query["scadenza_bando"] = {"query": now, "range": "max"}
                 query["chiusura_procedimento_bando"] = {
                     "query": now,
                     "range": "min",
                 }
-            if stato == "closed":
+            elif stato == "closed":
                 query["chiusura_procedimento_bando"] = {
                     "query": now,
                     "range": "max",
                 }
         if "SearchableText" in self.request.form and not SearchableText:
             del query["SearchableText"]
-
         return pc(**query)
 
     @property
@@ -124,74 +117,35 @@ class SearchBandi(BrowserView):
         query = self.request.QUERY_STRING
         stato = self.request.form.get("stato_bandi", "")
         if stato:
-            now = DateTime().ISO()
+            now = quote(DateTime().ISO())
+            if stato == "scheduled":
+                query = "{query}&apertura_bando.query:record={now}&apertura_bando.range:record=min".format(
+                    query=query, now=now
+                )
             if stato == "open":
-                query = (
-                    query
-                    + "&scadenza_bando.query:record=%s&scadenza_bando.range:record=min"
-                    % quote(now)
+                query = "{query}&scadenza_bando.query:record={now}&scadenza_bando.range:record=min&chiusura_procedimento_bando.query:record={now}&chiusura_procedimento_bando.range:record=min".format(
+                    query=query, now=now
                 )
-                query = (
-                    query
-                    + "&chiusura_procedimento_bando.query:record=%s&chiusura_procedimento_bando.range:record=min"
-                    % quote(now)
+            elif stato == "inProgress":
+                query = "{query}&amp;scadenza_bando.query:record={now}&scadenza_bando.range:record=max&amp;chiusura_procedimento_bando.query:record={now}&chiusura_procedimento_bando.range:record=min".format(
+                    query=query, now=now
                 )
-            if stato == "inProgress":
-                query = (
-                    query
-                    + "&amp;scadenza_bando.query:record=%s&scadenza_bando.range:record=max"
-                    % quote(now)
+            elif stato == "closed":
+                query = "{query}&amp;chiusura_procedimento_bando.query:record={now}&chiusura_procedimento_bando.range:record=max".format(
+                    query=query, now=now
                 )
-                query = (
-                    query
-                    + "&amp;chiusura_procedimento_bando.query:record=%s&chiusura_procedimento_bando.range:record=min"
-                    % quote(now)
-                )
-            if stato == "closed":
-                query = (
-                    query
-                    + "&amp;chiusura_procedimento_bando.query:record=%s&chiusura_procedimento_bando.range:record=max"
-                    % quote(now)
-                )
-
         return query
 
-    def getBandoState(self, bando):
-        """
-        """
-
-        scadenza_bando = bando.scadenza_bando
-        chiusura_procedimento_bando = bando.chiusura_procedimento_bando
-        state = ("open", translate(_(u"Open"), context=self.request))
-        if scadenza_bando and scadenza_bando.isPast():
-            if (
-                chiusura_procedimento_bando
-                and chiusura_procedimento_bando.isPast()
-            ):
-                state = (
-                    "closed",
-                    translate(_(u"Closed"), context=self.request),
-                )
-            else:
-                state = (
-                    "inProgress",
-                    translate(_(u"In progress"), context=self.request),
-                )
-        else:
-            if (
-                chiusura_procedimento_bando
-                and chiusura_procedimento_bando.isPast()
-            ):
-                state = (
-                    "closed",
-                    translate(_(u"Closed"), context=self.request),
-                )
-
-        return state
+    def getBandoState(self, brain):
+        """ """
+        bando = brain.getObject()
+        view = api.content.get_view(
+            name="bando_view", context=bando, request=self.request
+        )
+        return view.getBandoState()
 
     def isValidDeadline(self, date):
-        """
-        """
+        """ """
 
         if not date:
             return False
@@ -211,7 +165,4 @@ class SearchBandi(BrowserView):
 
     def getTypesUseViewActionInListings(self):
 
-        return api.portal.get_registry_record(
-            "plone.types_use_view_action_in_listings"
-        )
-
+        return api.portal.get_registry_record("plone.types_use_view_action_in_listings")

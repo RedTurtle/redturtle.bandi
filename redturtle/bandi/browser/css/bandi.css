@@ -130,15 +130,19 @@ h2.bandoTitle,
   float: left;
 }
 h2.bandoTitle .state-open,
+h2.bandoTitle .state-scheduled,
 h2.bandoTitle .state-inProgress,
 h2.bandoTitle .state-closed,
 .bandoInfos .state-open,
+.bandoInfos .state-scheduled,
 .bandoInfos .state-inProgress,
 .bandoInfos .state-closed {
   padding: 10px 0 5px;
 }
 h2.bandoTitle .state-open,
-.bandoInfos .state-open {
+.bandoInfos .state-open,
+h2.bandoTitle .state-scheduled,
+.bandoInfos .state-scheduled {
   background-image: url(++plone++redturtle.bandi.images/bando_open.png);
   color: #1c2024;
 }

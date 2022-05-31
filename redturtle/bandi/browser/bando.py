@@ -68,14 +68,11 @@ class BandoView(BrowserView):
         )(self.context)
 
     def retrieveFolderDeepening(self):
-        """Retrieves all Folder Deppening objects contained in Structured Document
-        """
+        """Retrieves all Folder Deppening objects contained in Structured Document"""
         struct_doc = self.context
         values = []
         dfolders = struct_doc.getFolderContents(
-            contentFilter={
-                "object_provides": IBandoFolderDeepening.__identifier__
-            }
+            contentFilter={"object_provides": IBandoFolderDeepening.__identifier__}
         )
         for df in dfolders:
             if not df.exclude_from_nav:
@@ -90,8 +87,7 @@ class BandoView(BrowserView):
         return values
 
     def retrieveContentsOfFolderDeepening(self, path_dfolder):
-        """Retrieves all objects contained in Folder Deppening
-        """
+        """Retrieves all objects contained in Folder Deppening"""
 
         values = []
         objs = self.context.portal_catalog(
@@ -186,9 +182,15 @@ class BandoView(BrowserView):
         """
         date = self.context.scadenza_bando
         long_format = date.strftime("%H:%M:%S") != "00:00:00"
-        return api.portal.get_localized_time(
-            datetime=date, long_format=long_format
-        )
+        return api.portal.get_localized_time(datetime=date, long_format=long_format)
+
+    def getOpenDate(self):
+        """
+        Return deadline partecipation date
+        """
+        date = self.context.apertura_bando
+        long_format = date.strftime("%H:%M:%S") != "00:00:00"
+        return api.portal.get_localized_time(datetime=date, long_format=long_format)
 
     def getAnnouncementCloseDate(self):
         """
@@ -201,11 +203,16 @@ class BandoView(BrowserView):
         """
         return right bando state
         """
+        apertura_bando = getattr(self.context, "apertura_bando", None)
         scadenza_bando = getattr(self.context, "scadenza_bando", None)
         chiusura_procedimento_bando = getattr(
             self.context, "chiusura_procedimento_bando", None
         )
 
+        if apertura_bando:
+            apertura_tz = getattr(apertura_bando, "tzinfo", None)
+            if apertura_bando > datetime.now(apertura_tz):
+                return ("scheduled", translate(_(u"Scheduled"), context=self.request))
         state = ("open", translate(_(u"Open"), context=self.request))
         if not scadenza_bando and not chiusura_procedimento_bando:
             return state
