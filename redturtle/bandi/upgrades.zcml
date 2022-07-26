@@ -42,5 +42,13 @@
     destination="2000"
     handler=".upgrades.migrate_to_2000"
     profile="redturtle.bandi:default" />
+  
+  <gs:upgradeStep
+    title="Add new metadata for apertura_bando"
+    description=""
+    source="2000"
+    destination="2100"
+    handler=".upgrades.migrate_to_2100"
+    profile="redturtle.bandi:default" />
 
   </configure>

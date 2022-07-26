@@ -140,3 +140,19 @@ def migrate_to_2000(context):
                 "apertura_bando",
             ]
         )
+
+
+def migrate_to_2100(context):
+    update_catalog(context)
+
+    bandi = api.content.find(portal_type="Bando")
+    tot_results = len(bandi)
+    logger.info("### Fixing {tot} Bandi ###".format(tot=tot_results))
+    for counter, brain in enumerate(bandi):
+        logger.info(
+            "[{counter}/{tot}] - {bando}".format(
+                counter=counter + 1, tot=tot_results, bando=brain.getPath()
+            )
+        )
+        bando = brain.getObject()
+        bando.reindexObject()
