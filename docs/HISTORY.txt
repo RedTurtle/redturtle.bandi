@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.1 (unreleased)
+1.4.1 (2022-07-28)
 ------------------
 
 - Added metadata "apertura_bando".
