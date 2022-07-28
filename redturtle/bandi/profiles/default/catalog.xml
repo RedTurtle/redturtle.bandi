@@ -20,6 +20,7 @@
     </index>
     
     <column value="chiusura_procedimento_bando"/>
+    <column value="apertura_bando"/>
     <column value="destinatari_bando"/>
     <column value="scadenza_bando"/>
     <column value="tipologia_bando"/>
