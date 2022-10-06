@@ -4,7 +4,10 @@ Changelog
 1.4.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix problem with scadenza_bando indexing: due to a
+  datetime 2 DateTime conversion tz information was 
+  badly transformed
+  [lucabel]
 
 
 1.4.1 (2022-07-28)

@@ -51,4 +51,12 @@
     handler=".upgrades.migrate_to_2100"
     profile="redturtle.bandi:default" />
 
+  <gs:upgradeStep
+    title="Reindex Scadenza bando with new indexer version"
+    description=""
+    source="2100"
+    destination="2101"
+    handler=".upgrades.migrate_to_2101"
+    profile="redturtle.bandi:default" />
+
   </configure>
