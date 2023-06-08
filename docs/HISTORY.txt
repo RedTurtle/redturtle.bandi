@@ -4,7 +4,8 @@ Changelog
 1.4.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix invalid tipologie_bando 
+  [mamico]
 
 
 1.4.2 (2022-10-07)
