@@ -5,6 +5,7 @@ from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from redturtle.bandi.interfaces.settings import IBandoSettings
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from redturtle.bandi import logger
 
 
 @implementer(IVocabularyFactory)
@@ -15,8 +16,11 @@ class TipologiaBandoVocabulary(object):
         )
         terms = []
         for tipologia in values:
-            key, value = tipologia.split("|")
-            terms.append(SimpleTerm(value=key, token=key, title=value))
+            if tipologia and "|" in tipologia:
+                key, value = tipologia.split("|", 1)
+                terms.append(SimpleTerm(value=key, token=key, title=value))
+            else:
+                logger.error("invalid tipologia bando %s", tipologia)
         return SimpleVocabulary(terms)
 
 
