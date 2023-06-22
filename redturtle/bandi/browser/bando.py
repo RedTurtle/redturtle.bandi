@@ -90,38 +90,39 @@ class BandoView(BrowserView):
         """Retrieves all objects contained in Folder Deppening"""
 
         values = []
-        objs = self.context.portal_catalog(
+        brains = self.context.portal_catalog(
             path={"query": path_dfolder, "depth": 1},
             sort_on="getObjPositionInParent",
         )
-        pp = getToolByName(self.context, "portal_properties")
-
-        for obj in objs:
-            if not obj.getPath() == path_dfolder and not obj.exclude_from_nav:
+        siteid = api.portal.get().getId()
+        for brain in brains:
+            if not brain.getPath() == path_dfolder and not brain.exclude_from_nav:
                 dictfields = dict(
-                    title=obj.Title,
-                    description=obj.Description,
-                    url=obj.getURL(),
-                    path=obj.getPath(),
+                    title=brain.Title,
+                    description=brain.Description,
+                    url=brain.getURL(),
+                    path=brain.getPath(),
                 )
-                if obj.Type == "Link":
-                    dictfields["url"] = obj.getRemoteUrl
-                elif obj.Type == "File":
-                    dictfields["url"] = obj.getURL() + "/@@download/file"
-                    # obj_file=obj.getObject().getFile()
-                    obj_file = obj.getObject().file
-                    # if obj_file.meta_type=='ATBlob':
-                    #     obj_size=obj_file.get_size()
-                    # else:
-                    #      obj_size=obj_file.getSize()
-                    obj_size = obj_file.size
-                    dictfields["filesize"] = self.getSizeString(obj_size)
-                else:
-                    dictfields["url"] = obj.getURL() + "/view"
-                dictfields["content-type"] = obj.mime_type
+                if brain.Type == "Link":
+                    # dictfields["url"] = obj.getRemoteUrl
+                    # XXX: bug di Link ? in remoteUrl per i link interni nei brain
+                    # c'è il path completo (con /Plone) invece che una url
+                    # XXX: probabilmente è legato al fatto che i link ora sono creati via
+                    # api e non vda interfaccia Plone
+                    if dictfields["url"].startswith(f"/{siteid}"):
+                        dictfields["url"] = dictfields["url"][len(siteid) + 1:]
+                elif brain.Type == "File":
+                    obj_file = brain.getObject().file
+                    if obj_file:
+                        dictfields["url"] = f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
+                        obj_size = obj_file.size
+                        dictfields["filesize"] = self.getSizeString(obj_size)
+                # else:
+                #     dictfields["url"] = brain.getURL() + "/view"
+                dictfields["content-type"] = brain.mime_type
                 # icon = getMultiAdapter((self.context, self.request, obj), IContentIcon)
                 # dictfields['icon'] = icon.html_tag()
-                dictfields["type"] = obj.Type
+                dictfields["type"] = brain.Type
                 values.append(dictfields)
 
         return values

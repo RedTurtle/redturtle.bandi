@@ -4,6 +4,12 @@ Changelog
 1.4.3 (unreleased)
 ------------------
 
+- Fix workaround for Link bug (?) (remoteUrl in catalog)
+  [mamico]
+
+- Feat url dei file compleata con filename
+  [mamico]
+
 - Fix invalid tipologie_bando 
   [mamico]
 
