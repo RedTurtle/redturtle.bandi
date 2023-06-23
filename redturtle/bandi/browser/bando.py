@@ -2,7 +2,7 @@
 from datetime import datetime
 from plone import api
 from plone.dexterity.browser import add, edit
-from Products.CMFCore.utils import getToolByName
+from plone.restapi.serializer.utils import uid_to_url
 from Products.Five import BrowserView
 from redturtle.bandi import bandiMessageFactory as _
 from redturtle.bandi.interfaces import IBandoFolderDeepening
@@ -20,7 +20,6 @@ class AddForm(add.DefaultAddForm):
 
         for group in self.groups:
             if group.label == "Settings":
-
                 manager = field.Fields(group.fields)
                 group.fields = manager.select(
                     "IShortName.id",
@@ -40,7 +39,6 @@ class EditForm(edit.DefaultEditForm):
 
         for group in self.groups:
             if group.label == "Settings":
-
                 manager = field.Fields(group.fields)
                 group.fields = manager.select(
                     "IShortName.id",
@@ -104,17 +102,25 @@ class BandoView(BrowserView):
                     path=brain.getPath(),
                 )
                 if brain.Type == "Link":
-                    # dictfields["url"] = obj.getRemoteUrl
+                    dictfields["url"] = brain.getRemoteUrl
+                    # resolve /resolveuid/... to url
+                    # XXX: ma qui non funziona perchè il path è /Plone/resolveuid/...
+                    # mentre la regex di uid_to_url si aspetta /resolveuid/... o
+                    # ../resolveuid/...
+                    # dictfields["url"] = uid_to_url(dictfields["url"])
                     # XXX: bug di Link ? in remoteUrl per i link interni nei brain
                     # c'è il path completo (con /Plone) invece che una url
-                    # XXX: probabilmente è legato al fatto che i link ora sono creati via
-                    # api e non vda interfaccia Plone
+                    # probabilmente legato al fatto che i link ora sono creati via
+                    # api e non da interfaccia Plone (?)
                     if dictfields["url"].startswith(f"/{siteid}"):
-                        dictfields["url"] = dictfields["url"][len(siteid) + 1:]
+                        dictfields["url"] = dictfields["url"][len(siteid) + 1 :]
+                        dictfields["url"] = uid_to_url(dictfields["url"])
                 elif brain.Type == "File":
                     obj_file = brain.getObject().file
                     if obj_file:
-                        dictfields["url"] = f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
+                        dictfields[
+                            "url"
+                        ] = f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
                         obj_size = obj_file.size
                         dictfields["filesize"] = self.getSizeString(obj_size)
                 # else:
@@ -213,8 +219,8 @@ class BandoView(BrowserView):
         if apertura_bando:
             apertura_tz = getattr(apertura_bando, "tzinfo", None)
             if apertura_bando > datetime.now(apertura_tz):
-                return ("scheduled", translate(_(u"Scheduled"), context=self.request))
-        state = ("open", translate(_(u"Open"), context=self.request))
+                return ("scheduled", translate(_("Scheduled"), context=self.request))
+        state = ("open", translate(_("Open"), context=self.request))
         if not scadenza_bando and not chiusura_procedimento_bando:
             return state
         scadenza_tz = getattr(scadenza_bando, "tzinfo", None)
@@ -224,15 +230,15 @@ class BandoView(BrowserView):
             ):
                 state = (
                     "closed",
-                    translate(_(u"Closed"), context=self.request),
+                    translate(_("Closed"), context=self.request),
                 )
             else:
                 state = (
                     "inProgress",
-                    translate(_(u"In progress"), context=self.request),
+                    translate(_("In progress"), context=self.request),
                 )
         elif chiusura_procedimento_bando and (
             chiusura_procedimento_bando < datetime.now().date()
         ):
-            state = ("closed", translate(_(u"Closed"), context=self.request))
+            state = ("closed", translate(_("Closed"), context=self.request))
         return state
