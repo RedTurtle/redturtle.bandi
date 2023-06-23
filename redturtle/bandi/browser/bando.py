@@ -17,6 +17,7 @@ from zope.schema.interfaces import IVocabularyFactory
 
 try:
     from plone.restapi.serializer.utils import uid_to_url
+
     HAS_PLONERESTAPI = True
 except ImportError:
     HAS_PLONERESTAPI = False
