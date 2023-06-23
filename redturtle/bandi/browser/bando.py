@@ -1,17 +1,25 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from plone import api
-from plone.dexterity.browser import add, edit
-from plone.restapi.serializer.utils import uid_to_url
+from plone.dexterity.browser import add
+from plone.dexterity.browser import edit
 from Products.Five import BrowserView
 from redturtle.bandi import bandiMessageFactory as _
 from redturtle.bandi.interfaces import IBandoFolderDeepening
 from z3c.form import field
-from zope.component import getMultiAdapter, getUtility
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
+
+
+try:
+    from plone.restapi.serializer.utils import uid_to_url
+    HAS_PLONERESTAPI = True
+except ImportError:
+    HAS_PLONERESTAPI = False
 
 
 class AddForm(add.DefaultAddForm):
@@ -114,7 +122,8 @@ class BandoView(BrowserView):
                     # api e non da interfaccia Plone (?)
                     if dictfields["url"].startswith(f"/{siteid}"):
                         dictfields["url"] = dictfields["url"][len(siteid) + 1 :]
-                        dictfields["url"] = uid_to_url(dictfields["url"])
+                        if HAS_PLONERESTAPI:
+                            dictfields["url"] = uid_to_url(dictfields["url"])
                 elif brain.Type == "File":
                     obj_file = brain.getObject().file
                     if obj_file:
