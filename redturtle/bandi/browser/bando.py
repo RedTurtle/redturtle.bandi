@@ -1,17 +1,26 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from plone import api
-from plone.dexterity.browser import add, edit
-from Products.CMFCore.utils import getToolByName
+from plone.dexterity.browser import add
+from plone.dexterity.browser import edit
 from Products.Five import BrowserView
 from redturtle.bandi import bandiMessageFactory as _
 from redturtle.bandi.interfaces import IBandoFolderDeepening
 from z3c.form import field
-from zope.component import getMultiAdapter, getUtility
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
+
+
+try:
+    from plone.restapi.serializer.utils import uid_to_url
+
+    HAS_PLONERESTAPI = True
+except ImportError:
+    HAS_PLONERESTAPI = False
 
 
 class AddForm(add.DefaultAddForm):
@@ -20,7 +29,6 @@ class AddForm(add.DefaultAddForm):
 
         for group in self.groups:
             if group.label == "Settings":
-
                 manager = field.Fields(group.fields)
                 group.fields = manager.select(
                     "IShortName.id",
@@ -40,7 +48,6 @@ class EditForm(edit.DefaultEditForm):
 
         for group in self.groups:
             if group.label == "Settings":
-
                 manager = field.Fields(group.fields)
                 group.fields = manager.select(
                     "IShortName.id",
@@ -90,38 +97,48 @@ class BandoView(BrowserView):
         """Retrieves all objects contained in Folder Deppening"""
 
         values = []
-        objs = self.context.portal_catalog(
+        brains = self.context.portal_catalog(
             path={"query": path_dfolder, "depth": 1},
             sort_on="getObjPositionInParent",
         )
-        pp = getToolByName(self.context, "portal_properties")
-
-        for obj in objs:
-            if not obj.getPath() == path_dfolder and not obj.exclude_from_nav:
+        siteid = api.portal.get().getId()
+        for brain in brains:
+            if not brain.getPath() == path_dfolder and not brain.exclude_from_nav:
                 dictfields = dict(
-                    title=obj.Title,
-                    description=obj.Description,
-                    url=obj.getURL(),
-                    path=obj.getPath(),
+                    title=brain.Title,
+                    description=brain.Description,
+                    url=brain.getURL(),
+                    path=brain.getPath(),
                 )
-                if obj.Type == "Link":
-                    dictfields["url"] = obj.getRemoteUrl
-                elif obj.Type == "File":
-                    dictfields["url"] = obj.getURL() + "/@@download/file"
-                    # obj_file=obj.getObject().getFile()
-                    obj_file = obj.getObject().file
-                    # if obj_file.meta_type=='ATBlob':
-                    #     obj_size=obj_file.get_size()
-                    # else:
-                    #      obj_size=obj_file.getSize()
-                    obj_size = obj_file.size
-                    dictfields["filesize"] = self.getSizeString(obj_size)
-                else:
-                    dictfields["url"] = obj.getURL() + "/view"
-                dictfields["content-type"] = obj.mime_type
+                if brain.Type == "Link":
+                    dictfields["url"] = brain.getRemoteUrl
+                    # resolve /resolveuid/... to url
+                    # XXX: ma qui non funziona perchè il path è /Plone/resolveuid/...
+                    # mentre la regex di uid_to_url si aspetta /resolveuid/... o
+                    # ../resolveuid/...
+                    # dictfields["url"] = uid_to_url(dictfields["url"])
+                    # XXX: bug di Link ? in remoteUrl per i link interni nei brain
+                    # c'è il path completo (con /Plone) invece che una url
+                    # probabilmente legato al fatto che i link ora sono creati via
+                    # api e non da interfaccia Plone (?)
+                    if dictfields["url"].startswith(f"/{siteid}"):
+                        dictfields["url"] = dictfields["url"][len(siteid) + 1 :]
+                        if HAS_PLONERESTAPI:
+                            dictfields["url"] = uid_to_url(dictfields["url"])
+                elif brain.Type == "File":
+                    obj_file = brain.getObject().file
+                    if obj_file:
+                        dictfields[
+                            "url"
+                        ] = f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
+                        obj_size = obj_file.size
+                        dictfields["filesize"] = self.getSizeString(obj_size)
+                # else:
+                #     dictfields["url"] = brain.getURL() + "/view"
+                dictfields["content-type"] = brain.mime_type
                 # icon = getMultiAdapter((self.context, self.request, obj), IContentIcon)
                 # dictfields['icon'] = icon.html_tag()
-                dictfields["type"] = obj.Type
+                dictfields["type"] = brain.Type
                 values.append(dictfields)
 
         return values
@@ -212,8 +229,8 @@ class BandoView(BrowserView):
         if apertura_bando:
             apertura_tz = getattr(apertura_bando, "tzinfo", None)
             if apertura_bando > datetime.now(apertura_tz):
-                return ("scheduled", translate(_(u"Scheduled"), context=self.request))
-        state = ("open", translate(_(u"Open"), context=self.request))
+                return ("scheduled", translate(_("Scheduled"), context=self.request))
+        state = ("open", translate(_("Open"), context=self.request))
         if not scadenza_bando and not chiusura_procedimento_bando:
             return state
         scadenza_tz = getattr(scadenza_bando, "tzinfo", None)
@@ -223,15 +240,15 @@ class BandoView(BrowserView):
             ):
                 state = (
                     "closed",
-                    translate(_(u"Closed"), context=self.request),
+                    translate(_("Closed"), context=self.request),
                 )
             else:
                 state = (
                     "inProgress",
-                    translate(_(u"In progress"), context=self.request),
+                    translate(_("In progress"), context=self.request),
                 )
         elif chiusura_procedimento_bando and (
             chiusura_procedimento_bando < datetime.now().date()
         ):
-            state = ("closed", translate(_(u"Closed"), context=self.request))
+            state = ("closed", translate(_("Closed"), context=self.request))
         return state
