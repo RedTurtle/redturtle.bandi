@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.3 (unreleased)
+1.4.3 (2023-06-27)
 ------------------
 
 - Fix workaround for Link bug (?) (remoteUrl in catalog)
