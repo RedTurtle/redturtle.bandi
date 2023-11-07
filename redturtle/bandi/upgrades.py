@@ -2,6 +2,9 @@
 from plone import api
 from plone.app.event.base import default_timezone
 from redturtle.bandi import logger
+from redturtle.bandi.interfaces.settings import IBandoSettings
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 import pytz
 
@@ -48,10 +51,10 @@ def migrate_to_1100(context):
         )
 
     criteria_mapping = {
-        u"getTipologia_bando": u"tipologia_bando",
-        u"getChiusura_procedimento_bando": u"chiusura_procedimento_bando",
-        u"getScadenza_bando": u"scadenza_bando",
-        u"getDestinatariBando": u"destinatari_bando",
+        "getTipologia_bando": "tipologia_bando",
+        "getChiusura_procedimento_bando": "chiusura_procedimento_bando",
+        "getScadenza_bando": "scadenza_bando",
+        "getDestinatariBando": "destinatari_bando",
     }
     collections = api.content.find(portal_type="Collection")
     tot_results = len(collections)
@@ -169,4 +172,46 @@ def migrate_to_2101(context):
             )
         )
         bando = brain.getObject()
-        bando.reindexObject(idxs=['scadenza_bando'])
+        bando.reindexObject(idxs=["scadenza_bando"])
+
+
+def migrate_to_2200(context):
+    bandi = api.content.find(portal_type="Bando")
+    tot_results = len(bandi)
+    logger.info("### Fixing {tot} Bandi ###".format(tot=tot_results))
+
+    def get_value(key, value):
+        for entry in api.portal.get_registry_record(
+            key, interface=IBandoSettings, default=[]
+        ):
+            id, label = entry.split("|")
+            if id == value:
+                return label
+
+    for counter, brain in enumerate(bandi):
+        logger.info(
+            "[{counter}/{tot}] - {bando}".format(
+                counter=counter + 1, tot=tot_results, bando=brain.getPath()
+            )
+        )
+        bando = brain.getObject()
+        tipologia = getattr(bando, "tipologia_bando", "")
+        destinatari = getattr(bando, "destinatari", "")
+        if tipologia:
+            value = get_value(key="tipologie_bando", value=tipologia)
+            setattr(bando, "tipologia_bando", value)
+        if destinatari:
+            value = [get_value(key="default_destinatari", value=x) for x in destinatari]
+            setattr(bando, "destinatari", value)
+        bando.reindexObject(idxs=["tipologia_bando", "destinatari_bando"])
+
+    # cleanup vocabs
+    for key in ["tipologie_bando", "default_destinatari"]:
+        values = []
+        for old_val in api.portal.get_registry_record(
+            key, interface=IBandoSettings, default=[]
+        ):
+            id, label = old_val.split("|")
+            values.append(label)
+
+        api.portal.set_registry_record(key, tuple(values), interface=IBandoSettings)
