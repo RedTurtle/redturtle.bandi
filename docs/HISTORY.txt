@@ -4,7 +4,8 @@ Changelog
 1.4.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not use key/value pairs in tipologia_bando and destinatari.
+  [cekk]
 
 
 1.4.3 (2023-06-27)
