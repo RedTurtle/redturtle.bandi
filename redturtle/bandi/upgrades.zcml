@@ -58,5 +58,12 @@
     destination="2101"
     handler=".upgrades.migrate_to_2101"
     profile="redturtle.bandi:default" />
-
+  
+  <gs:upgradeStep
+    title="Do not use key/token pairs in vocabs"
+    description=""
+    source="2101"
+    destination="2200"
+    handler=".upgrades.migrate_to_2200"
+    profile="redturtle.bandi:default" />
   </configure>
