@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.4 (unreleased)
+1.4.4 (2024-02-20)
 ------------------
 
 - Changed translation for states "Open" and "Closed".
