@@ -71,4 +71,8 @@ def tipologia_bando_label(object, **kw):
     if not object.tipologia_bando:
         return None
     vocab = TipologiaBandoVocabulary().__call__(object)
+    try:
+        vocab.getTermByToken(object.tipologia_bando)
+    except LookupError:
+        return None
     return vocab.getTermByToken(object.tipologia_bando).title
