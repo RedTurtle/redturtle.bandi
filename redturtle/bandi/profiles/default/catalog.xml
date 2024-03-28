@@ -24,4 +24,5 @@
     <column value="destinatari_bando"/>
     <column value="scadenza_bando"/>
     <column value="tipologia_bando"/>
+    <column value="tipologia_bando_label"/>
 </object>
