@@ -2,6 +2,7 @@
 from DateTime import DateTime
 from plone.indexer.decorator import indexer
 from redturtle.bandi.interfaces.bando import IBando
+from redturtle.bandi.vocabularies import TipologiaBandoVocabulary
 
 # importo il datetime di python
 from datetime import datetime
@@ -63,3 +64,15 @@ def ente_bando(object, **kw):
 @indexer(IBando)
 def tipologia_bando(object, **kw):
     return getattr(object, "tipologia_bando", None)
+    
+
+@indexer(IBando)
+def tipologia_bando_label(object, **kw):
+    if not object.tipologia_bando:
+        return None
+    vocab = TipologiaBandoVocabulary().__call__(object)
+    try:
+        vocab.getTermByToken(object.tipologia_bando)
+    except LookupError:
+        return None
+    return vocab.getTermByToken(object.tipologia_bando).title

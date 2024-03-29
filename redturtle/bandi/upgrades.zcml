@@ -59,4 +59,12 @@
     handler=".upgrades.migrate_to_2101"
     profile="redturtle.bandi:default" />
 
+  <gs:upgradeStep
+    title="Add new metadata for tipologia_bando_label"
+    description=""
+    source="2101"
+    destination="2102"
+    handler=".upgrades.migrate_to_2102"
+    profile="redturtle.bandi:default" />
+
   </configure>
