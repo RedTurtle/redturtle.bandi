@@ -185,4 +185,4 @@ def migrate_to_2102(context):
             )
         )
         bando = brain.getObject()
-        bando.reindexObject()
+        bando.reindexObject(idxs=['tipologia_bando_label'])
