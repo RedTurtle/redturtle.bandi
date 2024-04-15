@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.5 (unreleased)
+1.4.5 (2024-04-15)
 ------------------
 
 - Added "tipologia_bando_label" metadata.
