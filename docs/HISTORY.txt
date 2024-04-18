@@ -1,11 +1,25 @@
 Changelog
 =========
 
-1.4.4 (unreleased)
+1.4.6 (unreleased)
 ------------------
 
 - Do not use key/value pairs in tipologia_bando and destinatari.
   [cekk]
+
+
+1.4.5 (2024-04-15)
+------------------
+
+- Added "tipologia_bando_label" metadata.
+  [daniele]
+
+
+1.4.4 (2024-02-20)
+------------------
+
+- Changed translation for states "Open" and "Closed".
+  [daniele]
 
 
 1.4.3 (2023-06-27)

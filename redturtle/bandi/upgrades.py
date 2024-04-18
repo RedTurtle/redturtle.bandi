@@ -173,6 +173,22 @@ def migrate_to_2101(context):
         bando.reindexObject(idxs=["scadenza_bando"])
 
 
+def migrate_to_2102(context):
+    update_catalog(context)
+
+    bandi = api.content.find(portal_type="Bando")
+    tot_results = len(bandi)
+    logger.info("### Fixing {tot} Bandi ###".format(tot=tot_results))
+    for counter, brain in enumerate(bandi):
+        logger.info(
+            "[{counter}/{tot}] - {bando}".format(
+                counter=counter + 1, tot=tot_results, bando=brain.getPath()
+            )
+        )
+        bando = brain.getObject()
+        bando.reindexObject(idxs=["tipologia_bando_label"])
+
+
 def migrate_to_2200(context):
     from Acquisition import aq_base
     from plone.dexterity.utils import iterSchemata

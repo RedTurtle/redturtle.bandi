@@ -40,7 +40,7 @@ msgstr ""
 #: redturtle/bandi/browser/bando.py:226
 #: redturtle/bandi/portlets/collection.py:261
 msgid "Closed"
-msgstr "Chiuso"
+msgstr "Scaduto"
 
 #: redturtle/bandi/browser/configure.zcml:46
 msgid "Default"
@@ -74,7 +74,7 @@ msgstr ""
 #: redturtle/bandi/browser/bando.py:216
 #: redturtle/bandi/portlets/collection.py:253
 msgid "Open"
-msgstr "Aperto"
+msgstr "Attivo"
 
 #: redturtle/bandi/portlets/collection.py:22
 msgid "Other text"
