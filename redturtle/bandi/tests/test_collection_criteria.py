@@ -4,14 +4,14 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
-from redturtle.bandi.testing import REDTURTLE_BANDI_FUNCTIONAL_TESTING
+from redturtle.bandi.testing import FUNCTIONAL_TESTING
 
 import unittest
 
 
 class TestCollectionCriteria(unittest.TestCase):
 
-    layer = REDTURTLE_BANDI_FUNCTIONAL_TESTING
+    layer = FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer["portal"]
@@ -25,7 +25,7 @@ class TestCollectionCriteria(unittest.TestCase):
             container=self.portal,
             type="Bando",
             title="Bando with destinatari",
-            destinatari=[u"d1", u"d2", u"dà"],
+            destinatari=["d1", "d2", "dà"],
         )
 
         self.bando2 = api.content.create(
