@@ -104,12 +104,16 @@ class BandoView(BrowserView):
         siteid = api.portal.get().getId()
         for brain in brains:
             if not brain.getPath() == path_dfolder and not brain.exclude_from_nav:
+                effective = brain.effective
+                if effective.year() == 1969:
+                    # content not yet published
+                    effective = None
                 dictfields = dict(
                     title=brain.Title,
                     description=brain.Description,
                     url=brain.getURL(),
                     path=brain.getPath(),
-                    effective=brain.effective,
+                    effective=effective,
                     modified=brain.modified,
                 )
                 if brain.Type == "Link":
