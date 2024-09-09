@@ -2,6 +2,7 @@
 from plone import api
 from plone.app.event.base import default_timezone
 from redturtle.bandi import logger
+from redturtle.bandi.interfaces.settings import IBandoSettings
 
 import pytz
 
@@ -48,10 +49,10 @@ def migrate_to_1100(context):
         )
 
     criteria_mapping = {
-        u"getTipologia_bando": u"tipologia_bando",
-        u"getChiusura_procedimento_bando": u"chiusura_procedimento_bando",
-        u"getScadenza_bando": u"scadenza_bando",
-        u"getDestinatariBando": u"destinatari_bando",
+        "getTipologia_bando": "tipologia_bando",
+        "getChiusura_procedimento_bando": "chiusura_procedimento_bando",
+        "getScadenza_bando": "scadenza_bando",
+        "getDestinatariBando": "destinatari_bando",
     }
     collections = api.content.find(portal_type="Collection")
     tot_results = len(collections)
@@ -169,7 +170,7 @@ def migrate_to_2101(context):
             )
         )
         bando = brain.getObject()
-        bando.reindexObject(idxs=['scadenza_bando'])
+        bando.reindexObject(idxs=["scadenza_bando"])
 
 
 def migrate_to_2102(context):
@@ -185,4 +186,105 @@ def migrate_to_2102(context):
             )
         )
         bando = brain.getObject()
-        bando.reindexObject(idxs=['tipologia_bando_label'])
+        bando.reindexObject(idxs=["tipologia_bando_label"])
+
+
+def migrate_to_2200(context):
+    from Acquisition import aq_base
+    from plone.dexterity.utils import iterSchemata
+    from copy import deepcopy
+    from zope.schema import getFields
+
+    try:
+        from collective.volto.blocksfield.field import BlocksField
+
+        HAS_BLOCKS_FIELD = True
+    except ImportError:
+        HAS_BLOCKS_FIELD = True
+
+    bandi = api.content.find(portal_type="Bando")
+    tot_results = len(bandi)
+    logger.info("### Fixing {tot} Bandi ###".format(tot=tot_results))
+
+    def get_value(key, value):
+        for entry in api.portal.get_registry_record(
+            key, interface=IBandoSettings, default=[]
+        ):
+            id, label = entry.split("|")
+            if id == value:
+                return label
+        return value
+
+    def fix_listing(blocks):
+        for block in blocks.values():
+            if block.get("@type", "") != "listing":
+                continue
+            for query in block.get("querystring", {}).get("query", []):
+                value = query["v"]
+                if query["i"] == "destinatari_bando":
+                    query["v"] = [
+                        get_value(key="default_destinatari", value=v) for v in value
+                    ]
+                elif query["i"] == "tipologia_bando":
+                    query["v"] = [
+                        get_value(key="tipologie_bando", value=v) for v in value
+                    ]
+
+    for counter, brain in enumerate(bandi):
+        logger.info(
+            "[{counter}/{tot}] - {bando}".format(
+                counter=counter + 1, tot=tot_results, bando=brain.getPath()
+            )
+        )
+        bando = brain.getObject()
+        tipologia = getattr(bando, "tipologia_bando", "")
+        destinatari = getattr(bando, "destinatari", "")
+        if tipologia:
+            value = get_value(key="tipologie_bando", value=tipologia)
+            setattr(bando, "tipologia_bando", value)
+        if destinatari:
+            value = [get_value(key="default_destinatari", value=x) for x in destinatari]
+            setattr(bando, "destinatari", value)
+        bando.reindexObject(idxs=["tipologia_bando", "destinatari_bando"])
+
+    # fix blocks
+    # fix blocks in contents
+    logger.info("### Fixing blocks ###")
+    pc = api.portal.get_tool(name="portal_catalog")
+    brains = pc()
+    tot = len(brains)
+    i = 0
+    for brain in brains:
+        i += 1
+        if i % 1000 == 0:
+            logger.info("Progress: {}/{}".format(i, tot))
+        item = aq_base(brain.getObject())
+        if getattr(item, "blocks", {}):
+            blocks = deepcopy(item.blocks)
+            if blocks:
+                fix_listing(blocks)
+                item.blocks = blocks
+        if HAS_BLOCKS_FIELD:
+            for schema in iterSchemata(item):
+                # fix blocks in blocksfields
+                for name, field in getFields(schema).items():
+                    if not isinstance(field, BlocksField):
+                        continue
+                    value = deepcopy(field.get(item))
+                    if not value:
+                        continue
+                    blocks = value.get("blocks", {})
+                    if blocks:
+                        fix_listing(blocks)
+                        setattr(item, name, value)
+
+    # cleanup vocabs
+    for key in ["tipologie_bando", "default_destinatari"]:
+        values = []
+        for old_val in api.portal.get_registry_record(
+            key, interface=IBandoSettings, default=[]
+        ):
+            id, label = old_val.split("|")
+            values.append(label)
+
+        api.portal.set_registry_record(key, tuple(values), interface=IBandoSettings)

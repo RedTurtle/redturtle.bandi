@@ -10,47 +10,47 @@ class IBandoSettings(Interface):
     """
 
     default_ente = schema.Tuple(
-        title=_(u"default_ente_label", default=u"Default Ente"),
+        title=_("default_ente_label", default="Default Ente"),
         description=_(
-            u"default_ente_help",
-            default=u"Insert a list of default Enti that will be automatically selected when adding a new Bando.",
+            "default_ente_help",
+            default="Insert a list of default Enti that will be automatically selected when adding a new Bando.",
         ),
         required=False,
         value_type=schema.TextLine(),
         missing_value=None,
-        default=(u"Regione Emilia-Romagna",),
+        default=("Regione Emilia-Romagna",),
     )
 
     default_destinatari = schema.Tuple(
-        title=_(u"default_destinatari_label", default=u"Destinatari types"),
+        title=_("default_destinatari_label", default="Destinatari types"),
         description=_(
-            u"default_destinatari_help",
-            default=u"Insert a list of available destinatari that can be selected when adding a new Bando.",
+            "default_destinatari_help",
+            default="Insert a list of available destinatari that can be selected when adding a new Bando.",
         ),
         required=False,
         value_type=schema.TextLine(),
         missing_value=None,
         default=(
-            u"Cittadini|Cittadini",
-            u"Imprese|Imprese",
-            u"Enti locali|Enti locali",
-            u"Associazioni|Associazioni",
-            u"Altro|Altro",
+            "Cittadini",
+            "Imprese",
+            "Enti locali",
+            "Associazioni",
+            "Altro",
         ),
     )
 
     tipologie_bando = schema.Tuple(
-        title=_("tipologie_bando_label", default=u"Announcement types"),
+        title=_("tipologie_bando_label", default="Announcement types"),
         description=_(
             "tipologie_help",
-            u"These values will extend bandi.xml vocabulary on filesystem",
+            "These values will extend bandi.xml vocabulary on filesystem",
         ),
         required=False,
         value_type=schema.TextLine(),
         missing_value=None,
         default=(
-            u"beni_servizi|Acquisizione beni e servizi",
-            u"agevolazioni|Agevolazioni, finanziamenti, contributi",
-            u"altro|Altro",
+            "Acquisizione beni e servizi",
+            "Agevolazioni, finanziamenti, contributi",
+            "Altro",
         ),
     )
