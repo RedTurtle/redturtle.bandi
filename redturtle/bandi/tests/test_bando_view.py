@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-from redturtle.bandi.testing import REDTURTLE_BANDI_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.namedfile.file import NamedBlobFile
+from redturtle.bandi.testing import INTEGRATION_TESTING
 
+import os
 import unittest
 
 
 class BandoViewTest(unittest.TestCase):
-    layer = REDTURTLE_BANDI_INTEGRATION_TESTING
+    layer = INTEGRATION_TESTING
 
     def setUp(self):
         self.portal = self.layer["portal"]
@@ -104,3 +106,31 @@ class BandoViewTest(unittest.TestCase):
         )
         self.assertIn("Announcement type", view_new())
         self.assertIn("Altro", view_new())
+
+    def test_dates_in_attachments(self):
+        folder = api.content.create(
+            container=self.bando, type="Bando Folder Deepening", title="attachments"
+        )
+
+        filename = os.path.join(os.path.dirname(__file__), "example.txt")
+        api.content.create(
+            container=folder,
+            type="File",
+            title="attachment",
+            file=NamedBlobFile(
+                data=open(filename, "rb").read(),
+                filename="example.txt",
+                contentType="text/plain",
+            ),
+        )
+
+        view = api.content.get_view(
+            name="bando_view", context=self.bando, request=self.request
+        )
+        data = view.retrieveContentsOfFolderDeepening(
+            "/".join(folder.getPhysicalPath())
+        )
+
+        self.assertEqual(len(data), 1)
+        self.assertIn("modified", data[0])
+        self.assertIn("effective", data[0])

@@ -5,7 +5,7 @@ This module contains the tool of redturtle.bandi
 import os
 from setuptools import setup, find_packages
 
-version = "1.4.6.dev0"
+version = "1.4.7.dev0"
 
 setup(
     name="redturtle.bandi",
@@ -56,7 +56,8 @@ setup(
             "plone.testing>=5.0.0",
             "plone.app.contenttypes",
             "plone.app.robotframework[debug]",
-        ]
+            "collective.MockMailHost",
+        ],
     },
     test_suite="redturtle.bandi.tests.test_docs.test_suite",
     entry_points="""

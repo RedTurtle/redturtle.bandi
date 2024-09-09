@@ -1,10 +1,17 @@
 Changelog
 =========
 
-1.4.6 (unreleased)
+1.4.7 (unreleased)
 ------------------
 
 - Do not use key/value pairs in tipologia_bando and destinatari.
+  [cekk]
+
+
+1.4.6 (2024-09-09)
+------------------
+
+- Add effective and modified date to retrieveContentsOfFolderDeepening data.
   [cekk]
 
 
