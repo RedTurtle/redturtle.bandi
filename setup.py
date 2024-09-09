@@ -56,7 +56,8 @@ setup(
             "plone.testing>=5.0.0",
             "plone.app.contenttypes",
             "plone.app.robotframework[debug]",
-        ]
+            "collective.MockMailHost",
+        ],
     },
     test_suite="redturtle.bandi.tests.test_docs.test_suite",
     entry_points="""

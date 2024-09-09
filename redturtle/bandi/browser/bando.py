@@ -14,9 +14,9 @@ from zope.interface import implementer
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
 
-
 try:
     from plone.restapi.serializer.utils import uid_to_url
+    from plone.restapi.serializer.converters import json_compatible
 
     HAS_PLONERESTAPI = True
 except ImportError:
@@ -104,11 +104,17 @@ class BandoView(BrowserView):
         siteid = api.portal.get().getId()
         for brain in brains:
             if not brain.getPath() == path_dfolder and not brain.exclude_from_nav:
+                effective = brain.effective
+                if effective.year() == 1969:
+                    # content not yet published
+                    effective = None
                 dictfields = dict(
                     title=brain.Title,
                     description=brain.Description,
                     url=brain.getURL(),
                     path=brain.getPath(),
+                    effective=effective,
+                    modified=brain.modified,
                 )
                 if brain.Type == "Link":
                     dictfields["url"] = brain.getRemoteUrl
@@ -128,9 +134,9 @@ class BandoView(BrowserView):
                 elif brain.Type == "File":
                     obj_file = brain.getObject().file
                     if obj_file:
-                        dictfields[
-                            "url"
-                        ] = f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
+                        dictfields["url"] = (
+                            f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
+                        )
                         obj_size = obj_file.size
                         dictfields["filesize"] = self.getSizeString(obj_size)
                 # else:
@@ -139,6 +145,9 @@ class BandoView(BrowserView):
                 # icon = getMultiAdapter((self.context, self.request, obj), IContentIcon)
                 # dictfields['icon'] = icon.html_tag()
                 dictfields["type"] = brain.Type
+
+                if HAS_PLONERESTAPI:
+                    dictfields = json_compatible(dictfields)
                 values.append(dictfields)
 
         return values
