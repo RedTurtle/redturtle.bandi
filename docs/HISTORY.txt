@@ -4,7 +4,8 @@ Changelog
 1.4.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update it translations
+  [lucabel]
 
 
 1.4.6 (2024-09-09)
