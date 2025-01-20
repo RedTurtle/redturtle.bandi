@@ -31,6 +31,7 @@
   <include package=".content" />
   <include package=".portlets" />
   <include package=".restapi" />
+  <include package=".querymodifiers" />
   <include zcml:condition="installed collective.tiles.collection" package=".tiles" />
   <include file="upgrades.zcml" />
 
