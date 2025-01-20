@@ -38,10 +38,7 @@ class DestinatariVocabularyFactory(object):
         for i in range(len(values)):
             l.append(tuple(values[i].split("|")))
 
-        terms = [
-            SimpleTerm(value=pair[0], token=pair[0], title=pair[1])
-            for pair in l
-        ]
+        terms = [SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in l]
         return SimpleVocabulary(terms)
 
 
@@ -53,11 +50,27 @@ class EnteVocabularyFactory(object):
     def __call__(self, context):
         catalog = api.portal.get_tool("portal_catalog")
         enti = list(catalog._catalog.uniqueValuesFor("ente_bando"))
-        terms = [
-            SimpleTerm(value=ente, token=ente, title=ente) for ente in enti
-        ]
+        terms = [SimpleTerm(value=ente, token=ente, title=ente) for ente in enti]
 
         return SimpleVocabulary(terms)
 
 
 EnteVocabulary = EnteVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
+class BandiStatesVcabulary(object):
+    def __call__(self, context):
+        terms = [
+            SimpleTerm(
+                value=i,
+                token=i,
+                title=api.portal.translate(msgid=i, domain="plone"),
+            )
+            for i in ["open", "in-progress", "closed"]
+        ]
+
+        return SimpleVocabulary(terms)
+
+
+BandiStatesVcabularyFactory = BandiStatesVcabulary()

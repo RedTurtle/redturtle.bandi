@@ -36,3 +36,12 @@ msgstr "Destinatari bando"
 #: Custom bandi indexes
 msgid "scadenza_bando"
 msgstr "Scadenza bando"
+
+msgid "open"
+msgstr "Aperto"
+
+msgid "in-progress"
+msgstr "In lavorazione"
+
+msgid "closed"
+msgstr "Chiuso"

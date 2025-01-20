@@ -74,6 +74,11 @@
     component=".vocabularies.EnteVocabulary"
     />
 
+  <utility
+    name="redturtle.bandi.vocabularies.bandi_states"
+    component=".vocabularies.BandiStatesVcabularyFactory"
+    />
+
   <!-- indexers -->
   <adapter name="destinatari_bando" factory=".indexer.destinatari_bando" />
   <adapter name="chiusura_procedimento_bando" factory=".indexer.chiusura_procedimento_bando" />
