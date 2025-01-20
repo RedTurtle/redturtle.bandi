@@ -48,17 +48,14 @@ def modify_bandi_state_query(query):
         if i.get("i", "") == "bando_state":
             item = i
 
-            for value in i.get("v", [])
-            operator = state_operators.get(i.get("v", ""), None)
+            for value in i.get("v", []):
+                operator = state_operators.get(value, None)
 
-            if operator:
-                query_extender.append(operator)
+                if operator:
+                    query_extender.extend(operator)
 
     if item:
         query.remove(item)
         query.extend(query_extender)
 
-    import pdb
-
-    pdb.set_trace()
     return query
