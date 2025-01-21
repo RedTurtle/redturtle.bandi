@@ -42,6 +42,13 @@ def modify_bandi_state_query(query):
                 "i": "chiusura_procedimento_bando",
             },
         ),
+        "scheduled": (
+            {
+                "o": "plone.app.querystring.operation.date.largerThanRelativeDate",
+                "v": now,
+                "i": "apertura_bando",
+            },
+        ),
     }
 
     for i in query:

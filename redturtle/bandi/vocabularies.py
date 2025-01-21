@@ -67,7 +67,7 @@ class BandiStatesVcabulary(object):
                 token=i,
                 title=api.portal.translate(msgid=i, domain="plone"),
             )
-            for i in ["open", "in-progress", "closed"]
+            for i in ["open", "in-progress", "closed", "scheduled"]
         ]
 
         return SimpleVocabulary(terms)
