@@ -133,7 +133,7 @@
     <value key="vocabulary">redturtle.bandi.vocabularies.bandi_states</value>
     <value key="group"
            i18n:translate=""
-    >Text</value>
+    >Bando</value>
   </records>
 
 </registry>
