@@ -71,7 +71,7 @@
     title="Add new critea for bandi search"
     description=""
     source="2102"
-    destination="2103"
+    destination="2300"
     handler=".upgrades.update_registry"
     profile="redturtle.bandi:default" />
 
