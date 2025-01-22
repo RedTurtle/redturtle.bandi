@@ -341,7 +341,7 @@ msgid "chiusura_procedimento_bando_label"
 msgstr "Data chiusura procedimento"
 
 msgid "closed"
-msgstr ""
+msgstr "Scaduto"
 
 #. Default: "Insert a list of available destinatari that can be selected when adding a new Bando."
 #: redturtle/bandi/interfaces/settings.py:26
