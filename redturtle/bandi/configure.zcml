@@ -31,6 +31,7 @@
   <include package=".content" />
   <include package=".portlets" />
   <include package=".restapi" />
+  <include package=".querymodifiers" />
   <include zcml:condition="installed collective.tiles.collection" package=".tiles" />
   <include file="upgrades.zcml" />
 
@@ -58,6 +59,15 @@
       description="RedTurtle Bandi migrate to version 1100"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+
+  <genericsetup:registerProfile
+      name="to_2300"
+      title="Migrate to version 2300"
+      directory="profiles/to_2300"
+      description="RedTurtle Bandi migrate to version 2300"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <!-- registro i vocabolari -->
   <utility
     name="redturtle.bandi.tipologia.vocabulary"
@@ -72,6 +82,11 @@
   <utility
     name="redturtle.bandi.enti.vocabulary"
     component=".vocabularies.EnteVocabulary"
+    />
+
+  <utility
+    name="redturtle.bandi.vocabularies.bandi_states"
+    component=".vocabularies.BandiStatesVcabularyFactory"
     />
 
   <!-- indexers -->

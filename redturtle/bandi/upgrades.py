@@ -288,3 +288,13 @@ def migrate_to_2200(context):
             values.append(label)
 
         api.portal.set_registry_record(key, tuple(values), interface=IBandoSettings)
+
+
+def migrate_to_2300(context):
+    PROFILE_ID = "profile-redturtle.bandi:to_2300"
+    context.runAllImportStepsFromProfile(PROFILE_ID)
+
+    #  update indexes and topics
+    context.runImportStepFromProfile(
+        default_profile, "plone.app.registry", run_dependencies=False
+    )
