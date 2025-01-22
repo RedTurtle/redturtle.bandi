@@ -71,7 +71,7 @@ class BandiStatesVcabulary(object):
             SimpleTerm(
                 value=i,
                 token=i,
-                title=api.portal.translate(msgid=i, domain="plone"),
+                title=api.portal.translate(msgid=i),
             )
             for i in ["open", "in-progress", "closed", "scheduled"]
         ]
