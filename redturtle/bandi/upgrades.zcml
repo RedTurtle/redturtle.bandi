@@ -72,7 +72,7 @@
     description=""
     source="2102"
     destination="2300"
-    handler=".upgrades.update_registry"
+    handler=".upgrades.migrate_to_2300"
     profile="redturtle.bandi:default" />
 
   </configure>

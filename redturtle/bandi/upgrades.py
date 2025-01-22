@@ -48,10 +48,10 @@ def migrate_to_1100(context):
         )
 
     criteria_mapping = {
-        u"getTipologia_bando": u"tipologia_bando",
-        u"getChiusura_procedimento_bando": u"chiusura_procedimento_bando",
-        u"getScadenza_bando": u"scadenza_bando",
-        u"getDestinatariBando": u"destinatari_bando",
+        "getTipologia_bando": "tipologia_bando",
+        "getChiusura_procedimento_bando": "chiusura_procedimento_bando",
+        "getScadenza_bando": "scadenza_bando",
+        "getDestinatariBando": "destinatari_bando",
     }
     collections = api.content.find(portal_type="Collection")
     tot_results = len(collections)
@@ -169,7 +169,7 @@ def migrate_to_2101(context):
             )
         )
         bando = brain.getObject()
-        bando.reindexObject(idxs=['scadenza_bando'])
+        bando.reindexObject(idxs=["scadenza_bando"])
 
 
 def migrate_to_2102(context):
@@ -185,4 +185,14 @@ def migrate_to_2102(context):
             )
         )
         bando = brain.getObject()
-        bando.reindexObject(idxs=['tipologia_bando_label'])
+        bando.reindexObject(idxs=["tipologia_bando_label"])
+
+
+def migrate_to_2300(context):
+    PROFILE_ID = "profile-redturtle.bandi:to_2300"
+    context.runAllImportStepsFromProfile(PROFILE_ID)
+
+    #  update indexes and topics
+    context.runImportStepFromProfile(
+        default_profile, "plone.app.registry", run_dependencies=False
+    )
