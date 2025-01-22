@@ -1,11 +1,18 @@
 Changelog
 =========
 
-1.4.7 (unreleased)
+1.4.8 (unreleased)
 ------------------
 
 - Do not use key/value pairs in tipologia_bando and destinatari.
   [cekk]
+
+
+1.4.7 (2024-12-12)
+------------------
+
+- Update it translations
+  [lucabel]
 
 
 1.4.6 (2024-09-09)
