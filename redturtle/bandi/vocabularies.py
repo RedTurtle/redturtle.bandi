@@ -38,7 +38,13 @@ class DestinatariVocabularyFactory(object):
         for i in range(len(values)):
             l.append(tuple(values[i].split("|")))
 
-        terms = [SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in l]
+        terms = [
+            SimpleTerm(
+                value=pair[0], token=pair[0], title=len(pair) > 1 and pair[1] or ""
+            )
+            for pair in l
+        ]
+
         return SimpleVocabulary(terms)
 
 
