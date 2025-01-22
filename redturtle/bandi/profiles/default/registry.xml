@@ -146,7 +146,7 @@
             i18n:translate=""
         >Tip: you can use * to autocomplete.</value>
         <value key="operation">plone.app.querystring.queryparser._equal</value>
-        <value key="widget">SelectionWidget</value>
+        <value key="widget">MultipleSelectionWidget</value>
     </records>
 
 </registry>
