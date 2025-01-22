@@ -13,38 +13,38 @@ def modify_bandi_state_query(query):
     state_operators = {
         "open": (
             {
-                "o": "plone.app.querystring.operation.date.largerThanRelativeDate",
+                "o": "plone.app.querystring.operation.date.afterDateTime",
                 "v": now,
                 "i": "scadenza_bando",
             },
             {
-                "o": "plone.app.querystring.operation.date.largerThanRelativeDate",
+                "o": "plone.app.querystring.operation.date.afterDateTime",
                 "v": now,
                 "i": "chiusura_procedimento_bando",
             },
         ),
         "in-progress": (
             {
-                "o": "plone.app.querystring.operation.date.lessThanRelativeDate",
+                "o": "plone.app.querystring.operation.date.beforeDateTime",
                 "v": now,
                 "i": "scadenza_bando",
             },
             {
-                "o": "plone.app.querystring.operation.date.largerThanRelativeDate",
+                "o": "plone.app.querystring.operation.date.afterDateTime",
                 "v": now,
                 "i": "chiusura_procedimento_bando",
             },
         ),
         "closed": (
             {
-                "o": "plone.app.querystring.operation.date.lessThanRelativeDate",
+                "o": "plone.app.querystring.operation.date.beforeDateTime",
                 "v": now,
                 "i": "chiusura_procedimento_bando",
             },
         ),
         "scheduled": (
             {
-                "o": "plone.app.querystring.operation.date.largerThanRelativeDate",
+                "o": "plone.app.querystring.operation.date.afterDateTime",
                 "v": now,
                 "i": "apertura_bando",
             },
