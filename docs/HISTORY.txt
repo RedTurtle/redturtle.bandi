@@ -7,6 +7,9 @@ Changelog
 - Do not use key/value pairs in tipologia_bando and destinatari.
   [cekk]
 
+- Bandi querystring criteria to search by bandi state.
+  [folix-01]
+
 
 1.4.7 (2024-12-12)
 ------------------
