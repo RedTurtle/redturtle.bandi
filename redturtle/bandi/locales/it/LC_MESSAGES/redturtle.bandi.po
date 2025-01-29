@@ -65,7 +65,7 @@ msgstr ""
 #: redturtle/bandi/browser/bando.py:252
 #: redturtle/bandi/portlets/collection.py:261
 msgid "Closed"
-msgstr "Scaduto"
+msgstr "Chiuso"
 
 #: redturtle/bandi/browser/configure.zcml:46
 msgid "Default"
@@ -407,7 +407,7 @@ msgid "help_search_authorities"
 msgstr "Mostra i bandi appartenenti a questi enti. Possono essere selezionati più tag mantenendo premuto il tasto Ctrl (o il tasto Mela sul Mac)."
 
 msgid "in-progress"
-msgstr "In lavorazione"
+msgstr "In corso"
 
 #. Default: "Search"
 #: redturtle/bandi/browser/search_form.pt:203
@@ -420,7 +420,7 @@ msgid "more_url"
 msgstr "Altro…"
 
 msgid "open"
-msgstr "Attivo"
+msgstr "Aperto"
 
 #: redturtle/bandi/configure.zcml:53
 msgid "redturtle.bandi uninstall"
