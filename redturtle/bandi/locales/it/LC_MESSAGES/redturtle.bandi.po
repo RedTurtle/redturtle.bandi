@@ -340,9 +340,6 @@ msgstr ""
 msgid "chiusura_procedimento_bando_label"
 msgstr "Data chiusura procedimento"
 
-msgid "closed"
-msgstr "Scaduto"
-
 #. Default: "Insert a list of available destinatari that can be selected when adding a new Bando."
 #: redturtle/bandi/interfaces/settings.py:26
 msgid "default_destinatari_help"
@@ -406,9 +403,6 @@ msgstr "Risultati ricerca bandi"
 msgid "help_search_authorities"
 msgstr "Mostra i bandi appartenenti a questi enti. Possono essere selezionati più tag mantenendo premuto il tasto Ctrl (o il tasto Mela sul Mac)."
 
-msgid "in-progress"
-msgstr "In corso"
-
 #. Default: "Search"
 #: redturtle/bandi/browser/search_form.pt:203
 msgid "label_search"
@@ -418,9 +412,6 @@ msgstr "Cerca"
 #: redturtle/bandi/tiles/bandi_render.pt:80
 msgid "more_url"
 msgstr "Altro…"
-
-msgid "open"
-msgstr "Aperto"
 
 #: redturtle/bandi/configure.zcml:53
 msgid "redturtle.bandi uninstall"
@@ -445,9 +436,6 @@ msgstr "Scadenza dei termini per partecipare al bando"
 #: redturtle/bandi/interfaces/bandoSchema.py:59
 msgid "scadenza_bando_label"
 msgstr "Data e ora di scadenza"
-
-msgid "scheduled"
-msgstr "Programmato"
 
 #. Default: "No results found"
 #: redturtle/bandi/tiles/bandi_render.pt:23
