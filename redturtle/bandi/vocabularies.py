@@ -65,7 +65,7 @@ class BandiStatesVcabulary(object):
             SimpleTerm(
                 value=i,
                 token=i,
-                title=api.portal.translate(msgid=i, domain="redturtle.bandi"),
+                title=api.portal.translate(msgid=i, domain="manual"),
             )
             for i in ["open", "in-progress", "closed", "scheduled"]
         ]
