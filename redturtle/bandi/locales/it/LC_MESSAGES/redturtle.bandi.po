@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-01-22 14:46+0000\n"
+"POT-Creation-Date: 2025-02-05 13:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Filippo Campi <filippo.campi@redturtle.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -341,7 +341,7 @@ msgid "chiusura_procedimento_bando_label"
 msgstr "Data chiusura procedimento"
 
 msgid "closed"
-msgstr "Scaduto"
+msgstr "Chiuso"
 
 #. Default: "Insert a list of available destinatari that can be selected when adding a new Bando."
 #: redturtle/bandi/interfaces/settings.py:26
@@ -418,6 +418,9 @@ msgstr "Cerca"
 #: redturtle/bandi/tiles/bandi_render.pt:80
 msgid "more_url"
 msgstr "Altro…"
+
+msgid "open"
+msgstr "Attivo"
 
 #: redturtle/bandi/configure.zcml:53
 msgid "redturtle.bandi uninstall"
