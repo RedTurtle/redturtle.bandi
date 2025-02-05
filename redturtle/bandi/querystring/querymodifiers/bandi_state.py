@@ -51,18 +51,27 @@ def modify_bandi_state_query(query):
         ),
     }
 
+    query_items_to_remove = []
+
     for i in query:
         if i.get("i", "") == "bando_state":
             item = i
 
-            for value in i.get("v", []):
-                operator = state_operators.get(value, None)
+            value = i.get("v", "")
 
-                if operator:
-                    query_extender.extend(operator)
+            if type(value) is list:
+                value = value and value[0] or ""
 
-    if item:
-        query.remove(item)
+            operator = state_operators.get(value, None)
+
+            if operator:
+                query_extender.extend(operator)
+                query_items_to_remove.append(item)
+
+    if query_extender:
+        for i in query_items_to_remove:
+            query.remove(i)
+
         query.extend(query_extender)
 
     return query
