@@ -58,7 +58,7 @@
     destination="2101"
     handler=".upgrades.migrate_to_2101"
     profile="redturtle.bandi:default" />
-
+  
   <gs:upgradeStep
     title="Add new metadata for tipologia_bando_label"
     description=""
@@ -68,11 +68,18 @@
     profile="redturtle.bandi:default" />
 
   <gs:upgradeStep
-    title="Add new critea for bandi search"
+    title="Do not use key/token pairs in vocabs"
     description=""
     source="2102"
-    destination="2300"
-    handler=".upgrades.migrate_to_2300"
+    destination="2200"
+    handler=".upgrades.migrate_to_2200"
     profile="redturtle.bandi:default" />
 
+  <gs:upgradeStep
+    title="Add new critea for bandi search"
+    description=""
+    source="2200"
+    destination="2300"
+    handler=".upgrades.migrate_to_2300" />
+  
   </configure>

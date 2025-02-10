@@ -80,7 +80,7 @@ class BandoViewTest(unittest.TestCase):
             container=self.portal,
             type="Bando",
             title="Bando new",
-            tipologia_bando="altro",
+            tipologia_bando="Altro",
         )
         view_new = api.content.get_view(
             name="bando_view", context=bando_new, request=self.request
@@ -99,7 +99,7 @@ class BandoViewTest(unittest.TestCase):
             container=self.portal,
             type="Bando",
             title="Bando new",
-            tipologia_bando="altro",
+            tipologia_bando="Altro",
         )
         view_new = api.content.get_view(
             name="bando_right_view", context=bando_new, request=self.request

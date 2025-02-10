@@ -14,13 +14,7 @@ class TipologiaBandoVocabulary(object):
         values = api.portal.get_registry_record(
             "tipologie_bando", interface=IBandoSettings, default=[]
         )
-        terms = []
-        for tipologia in values:
-            if tipologia and "|" in tipologia:
-                key, value = tipologia.split("|", 1)
-                terms.append(SimpleTerm(value=key, token=key, title=value))
-            else:
-                logger.error("invalid tipologia bando %s", tipologia)
+        terms = [SimpleTerm(value=x, token=x, title=x) for x in values if x]
         return SimpleVocabulary(terms)
 
 
@@ -33,18 +27,7 @@ class DestinatariVocabularyFactory(object):
         values = api.portal.get_registry_record(
             "default_destinatari", interface=IBandoSettings, default=[]
         )
-
-        l = []
-        for i in range(len(values)):
-            l.append(tuple(values[i].split("|")))
-
-        terms = [
-            SimpleTerm(
-                value=pair[0], token=pair[0], title=len(pair) > 1 and pair[1] or ""
-            )
-            for pair in l
-        ]
-
+        terms = [SimpleTerm(value=x, token=x, title=x) for x in values if x]
         return SimpleVocabulary(terms)
 
 
