@@ -80,6 +80,7 @@
     description=""
     source="2200"
     destination="2300"
-    handler=".upgrades.migrate_to_2300" />
+    handler=".upgrades.migrate_to_2300"
+    profile="redturtle.bandi:default" />
   
   </configure>
