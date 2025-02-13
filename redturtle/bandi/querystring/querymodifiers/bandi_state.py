@@ -6,12 +6,18 @@ from DateTime import DateTime
 
 @provider(IQueryModifier)
 def modify_bandi_state_query(query):
+    """
+    Substitute bando_state in query with a combination of other indexes
+    """
     now = json_compatible(DateTime())
-    item = None
-    query_extender = []
 
     state_operators = {
         "open": (
+            {
+                "o": "plone.app.querystring.operation.date.beforeDateTime",
+                "v": now,
+                "i": "apertura_bando",
+            },
             {
                 "o": "plone.app.querystring.operation.date.afterDateTime",
                 "v": now,
@@ -51,27 +57,18 @@ def modify_bandi_state_query(query):
         ),
     }
 
-    query_items_to_remove = []
+    new_query = []
+    for criteria in query:
+        if criteria.get("i", "") != "bando_state":
+            new_query.append(criteria)
+            continue
 
-    for i in query:
-        if i.get("i", "") == "bando_state":
-            item = i
+        value = criteria.get("v", "")
+        if isinstance(value, list):
+            # get only first
+            value = value and value[0] or ""
 
-            value = i.get("v", "")
-
-            if type(value) is list:
-                value = value and value[0] or ""
-
-            operator = state_operators.get(value, None)
-
-            if operator:
-                query_extender.extend(operator)
-                query_items_to_remove.append(item)
-
-    if query_extender:
-        for i in query_items_to_remove:
-            query.remove(i)
-
-        query.extend(query_extender)
-
-    return query
+        operator = state_operators.get(value, None)
+        if operator:
+            new_query.extend(operator)
+    return new_query
