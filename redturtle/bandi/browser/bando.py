@@ -3,6 +3,7 @@ from datetime import datetime
 from plone import api
 from plone.dexterity.browser import add
 from plone.dexterity.browser import edit
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.Five import BrowserView
 from redturtle.bandi import bandiMessageFactory as _
 from redturtle.bandi.interfaces import IBandoFolderDeepening
@@ -13,6 +14,7 @@ from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
+
 
 try:
     from plone.restapi.serializer.utils import uid_to_url
@@ -74,6 +76,13 @@ class BandoView(BrowserView):
             IVocabularyFactory, name="redturtle.bandi.tipologia.vocabulary"
         )(self.context)
 
+    def fix_portal_type(self, portal_type):
+        """
+        normalize portal_type
+        """
+        normalizer = getUtility(IIDNormalizer)
+        return normalizer.normalize(portal_type).replace("-", "")
+
     def retrieveFolderDeepening(self):
         """Retrieves all Folder Deppening objects contained in Structured Document"""
         struct_doc = self.context
@@ -101,56 +110,70 @@ class BandoView(BrowserView):
             path={"query": path_dfolder, "depth": 1},
             sort_on="getObjPositionInParent",
         )
-        siteid = api.portal.get().getId()
+
         for brain in brains:
             if not brain.getPath() == path_dfolder and not brain.exclude_from_nav:
                 effective = brain.effective
                 if effective.year() == 1969:
                     # content not yet published
                     effective = None
-                dictfields = dict(
-                    title=brain.Title,
-                    description=brain.Description,
-                    url=brain.getURL(),
-                    path=brain.getPath(),
-                    effective=effective,
-                    modified=brain.modified,
+                dictfields = {
+                    "title": brain.Title,
+                    "description": brain.Description,
+                    "url": brain.getURL(),
+                    "path": brain.getPath(),
+                    "effective": effective,
+                    "modified": brain.modified,
+                    "content-type": brain.mime_type,
+                    "type": brain.Type,
+                }
+                modifier = getattr(
+                    self, f"type_hook_{self.fix_portal_type(brain.Type)}", None
                 )
-                if brain.Type == "Link":
-                    dictfields["url"] = brain.getRemoteUrl
-                    # resolve /resolveuid/... to url
-                    # XXX: ma qui non funziona perchè il path è /Plone/resolveuid/...
-                    # mentre la regex di uid_to_url si aspetta /resolveuid/... o
-                    # ../resolveuid/...
-                    # dictfields["url"] = uid_to_url(dictfields["url"])
-                    # XXX: bug di Link ? in remoteUrl per i link interni nei brain
-                    # c'è il path completo (con /Plone) invece che una url
-                    # probabilmente legato al fatto che i link ora sono creati via
-                    # api e non da interfaccia Plone (?)
-                    if dictfields["url"].startswith(f"/{siteid}"):
-                        dictfields["url"] = dictfields["url"][len(siteid) + 1 :]
-                        if HAS_PLONERESTAPI:
-                            dictfields["url"] = uid_to_url(dictfields["url"])
-                elif brain.Type == "File":
-                    obj_file = brain.getObject().file
-                    if obj_file:
-                        dictfields["url"] = (
-                            f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
-                        )
-                        obj_size = obj_file.size
-                        dictfields["filesize"] = self.getSizeString(obj_size)
-                # else:
-                #     dictfields["url"] = brain.getURL() + "/view"
-                dictfields["content-type"] = brain.mime_type
-                # icon = getMultiAdapter((self.context, self.request, obj), IContentIcon)
-                # dictfields['icon'] = icon.html_tag()
-                dictfields["type"] = brain.Type
+                if modifier and callable(modifier):
+                    dictfields.update(modifier(brain))
 
                 if HAS_PLONERESTAPI:
                     dictfields = json_compatible(dictfields)
                 values.append(dictfields)
 
         return values
+
+    def type_hook_link(self, brain):
+        """
+        custom data for Links
+        """
+        data = {}
+        siteid = api.portal.get().getId()
+        data["url"] = brain.getRemoteUrl
+        # resolve /resolveuid/... to url
+        # XXX: ma qui non funziona perchè il path è /Plone/resolveuid/...
+        # mentre la regex di uid_to_url si aspetta /resolveuid/... o
+        # ../resolveuid/...
+        # dictfields["url"] = uid_to_url(dictfields["url"])
+        # XXX: bug di Link ? in remoteUrl per i link interni nei brain
+        # c'è il path completo (con /Plone) invece che una url
+        # probabilmente legato al fatto che i link ora sono creati via
+        # api e non da interfaccia Plone (?)
+        if data["url"].startswith(f"/{siteid}"):
+            data["url"] = data["url"][len(siteid) + 1 :]
+            if HAS_PLONERESTAPI:
+                data["url"] = uid_to_url(data["url"])
+        return data
+
+    def type_hook_file(self, brain):
+        """
+        Custom data for Files
+        """
+        data = {}
+        obj_file = brain.getObject().file
+        if obj_file:
+            data["url"] = (
+                f"{brain.getURL()}/@@download/file/{obj_file.filename}"  # noqa E501
+            )
+            obj_size = obj_file.size
+            data["filesize"] = self.getSizeString(obj_size)
+        return data
 
     def getSizeString(self, size):
         const = {"kB": 1024, "MB": 1024 * 1024, "GB": 1024 * 1024 * 1024}

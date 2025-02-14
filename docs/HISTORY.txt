@@ -6,7 +6,8 @@ Changelog
 
 - Do not use key/value pairs in tipologia_bando and destinatari.
   [cekk]
-
+- Refactor retrieveContentsOfFolderDeepening to be more pluggable and use hooks for content-types based additional data.
+  [cell]
 
 1.4.7 (2024-12-12)
 ------------------
