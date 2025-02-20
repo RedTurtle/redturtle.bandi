@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.8 (unreleased)
+1.5.0 (2025-02-20)
 ------------------
 
 - Do not use key/value pairs in tipologia_bando and destinatari.
