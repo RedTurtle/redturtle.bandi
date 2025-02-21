@@ -75,4 +75,12 @@
     handler=".upgrades.migrate_to_2200"
     profile="redturtle.bandi:default" />
 
+  <gs:upgradeStep
+    title="Add new critea for bandi search"
+    description=""
+    source="2200"
+    destination="2300"
+    handler=".upgrades.migrate_to_2300"
+    profile="redturtle.bandi:default" />
+  
   </configure>

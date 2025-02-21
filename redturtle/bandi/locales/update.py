@@ -52,7 +52,18 @@ def _sync():
     subprocess.call(cmd, shell=True)
 
 
+def _merge():
+    cmd = "{0} merge --pot {1}/{2}.pot --merge {3}/manual.pot".format(
+        i18ndude, locale_path, domain, locale_path
+    )
+    subprocess.call(
+        cmd,
+        shell=True,
+    )
+
+
 def update_locale():
     locale_folder_setup()
     _sync()
     _rebuild()
+    _merge()
