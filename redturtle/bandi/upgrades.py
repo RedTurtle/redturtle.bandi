@@ -220,7 +220,9 @@ def migrate_to_2200(context):
             if block.get("@type", "") != "listing":
                 continue
             for query in block.get("querystring", {}).get("query", []):
-                value = query["v"]
+                value = query.get("v", "")
+                if not value:
+                    continue
                 if query["i"] == "destinatari_bando":
                     query["v"] = [
                         get_value(key="default_destinatari", value=v) for v in value
