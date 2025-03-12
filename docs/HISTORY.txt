@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.1 (unreleased)
+1.5.1 (2025-03-12)
 ------------------
 
 - Fix upgrade-step to not broke on missing value.
