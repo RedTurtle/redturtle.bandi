@@ -4,7 +4,8 @@ Changelog
 1.5.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add new criteria for bando_state.
+  [folix-01]
 
 
 1.5.1 (2025-03-12)
