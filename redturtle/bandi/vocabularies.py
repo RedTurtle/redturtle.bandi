@@ -45,3 +45,21 @@ class EnteVocabularyFactory(object):
 
 
 EnteVocabulary = EnteVocabularyFactory()
+
+
+@implementer(IVocabularyFactory)
+class BandiStatesVcabulary(object):
+    def __call__(self, context):
+        terms = [
+            SimpleTerm(
+                value=i,
+                token=i,
+                title=api.portal.translate(msgid=i, domain="redturtle.bandi"),
+            )
+            for i in ["open", "in-progress", "closed", "scheduled"]
+        ]
+
+        return SimpleVocabulary(terms)
+
+
+BandiStatesVcabularyFactory = BandiStatesVcabulary()
