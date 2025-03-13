@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.2 (unreleased)
+1.6.0 (2025-03-13)
 ------------------
 
 - Add new criteria for bando_state.
