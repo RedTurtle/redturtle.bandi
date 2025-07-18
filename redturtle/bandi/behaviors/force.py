@@ -1,8 +1,9 @@
-from plone.autoform import directives as form
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.interfaces import IDexterityContent
 from plone.supermodel import model
-from redturrtle.bandi import _
+from redturtle.bandi import _
+from redturtle.bandi.config import STATES
+from redturtle.bandi.interfaces.bando import IBando
 from zope import schema
 from zope.component import adapter
 from zope.interface import implementer
@@ -28,10 +29,7 @@ class IForcedState(model.Schema):
         ),
         required=False,
         vocabulary=SimpleVocabulary(
-            [
-                SimpleTerm("in_corso", "in_corso", _("in_corso")),
-                SimpleTerm("concluso", "concluso", _("concluso")),
-            ]
+            [SimpleTerm(state, state, STATES[state]["label"]) for state in STATES]
         ),
     )
 

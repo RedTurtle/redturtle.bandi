@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+# OBSOLETED
+
 from plone import api
 from plone.app.portlets.browser import formhelper
 from plone.app.portlets.portlets import base
@@ -240,7 +243,7 @@ class Renderer(base.Renderer):
 
     def getBandoState(self, bando):
         """
-        return corretc bando state
+        return correctt bando state
         """
         scadenza_bando = bando.scadenza_bando
         chiusura_procedimento_bando = bando.chiusura_procedimento_bando

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from redturtle.bandi import logger
 from redturtle.bandi.interfaces.settings import IBandoSettings
-from six.moves import range
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm

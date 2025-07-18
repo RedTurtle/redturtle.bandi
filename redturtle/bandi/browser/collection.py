@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from Products.Five import BrowserView
-from redturtle.bandi import bandiMessageFactory as _
 from zope.component import getUtility
-from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory

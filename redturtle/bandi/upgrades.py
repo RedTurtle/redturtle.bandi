@@ -190,7 +190,7 @@ def migrate_to_2102(context):
         bando.reindexObject(idxs=["tipologia_bando_label"])
 
 
-def migrate_to_2200(context):
+def migrate_to_2200(context):  # noqa: C901
     from Acquisition import aq_base
     from copy import deepcopy
     from plone.dexterity.utils import iterSchemata

@@ -6,6 +6,7 @@ from plone.dexterity.browser import edit
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.Five import BrowserView
 from redturtle.bandi import bandiMessageFactory as _
+from redturtle.bandi.config import STATES
 from redturtle.bandi.interfaces import IBandoFolderDeepening
 from z3c.form import field
 from zope.component import getMultiAdapter
@@ -156,7 +157,7 @@ class BandoView(BrowserView):
         # probabilmente legato al fatto che i link ora sono creati via
         # api e non da interfaccia Plone (?)
         if data["url"].startswith(f"/{siteid}"):
-            data["url"] = data["url"][len(siteid) + 1 :]
+            data["url"] = data["url"][len(siteid) + 1 :]  # noqa: E203
             if HAS_PLONERESTAPI:
                 data["url"] = uid_to_url(data["url"])
         return data
@@ -252,6 +253,13 @@ class BandoView(BrowserView):
         """
         return right bando state
         """
+        forced_state = getattr(self.context, "forced_state", None)
+        if forced_state in STATES:
+            return (
+                forced_state,
+                translate(STATES[forced_state]["label"], context=self.request),
+            )
+
         apertura_bando = getattr(self.context, "apertura_bando", None)
         scadenza_bando = getattr(self.context, "scadenza_bando", None)
         chiusura_procedimento_bando = getattr(
