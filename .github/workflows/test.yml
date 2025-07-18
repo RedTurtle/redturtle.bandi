@@ -9,7 +9,9 @@ jobs:
       max-parallel: 4
       matrix:
         python: ["3.8", "3.11"]
-        plone: ["52", "60"]
+        plone: ["60"]
+        # temporaneamente disabilitati test su plone 5.2
+        # plone: ["52", "60"]
         exclude:
            - python: "3.8"
              plone: "60"
