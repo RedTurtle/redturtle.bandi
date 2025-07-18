@@ -17,15 +17,19 @@ setup(
     # Get more strings from
     # http://pypi.python.org/pypi?:action=list_classifiers
     classifiers=[
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 6.0",
         "Framework :: Plone :: Addon",
         "Framework :: Plone",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python",
     ],
+    python_requires=">=3.8",
     keywords="redturtle bandi announcements",
     author="RedTurtle Technology",
     author_email="sviluppoplone@redturtle.it",

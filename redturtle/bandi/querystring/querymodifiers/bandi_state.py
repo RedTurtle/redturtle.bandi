@@ -1,7 +1,7 @@
-from plone.app.querystring.interfaces import IQueryModifier
-from zope.interface import provider
-from plone.restapi.serializer.converters import json_compatible
 from DateTime import DateTime
+from plone.app.querystring.interfaces import IQueryModifier
+from plone.restapi.serializer.converters import json_compatible
+from zope.interface import provider
 
 
 @provider(IQueryModifier)

@@ -4,7 +4,10 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add redturtle.bandi.forced_state behavior. This behavior allows to set the forced state of an announcement.
+  [mamico]
+- lint/isort
+  [mamico]
 
 
 1.6.0 (2025-03-13)

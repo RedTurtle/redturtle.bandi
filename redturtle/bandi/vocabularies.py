@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from six.moves import range
+from redturtle.bandi.interfaces.settings import IBandoSettings
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from redturtle.bandi.interfaces.settings import IBandoSettings
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from redturtle.bandi import logger
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 @implementer(IVocabularyFactory)
