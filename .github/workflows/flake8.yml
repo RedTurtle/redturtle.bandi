@@ -27,4 +27,4 @@ jobs:
         run: pip install flake8
 
       - name: run flake8
-        run: flake8 src/ setup.py
+        run: flake8 redturtle/ setup.py
