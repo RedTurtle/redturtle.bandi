@@ -24,7 +24,7 @@ class IForcedState(model.Schema):
                 "Indica lo stato di avanzamento. Se il campo esiste, viene "
                 "utilizzato per determinare lo stato del bando. Se non esiste, "
                 "viene utilizzato il metodo di base per cui lo stato del bando "
-                "è determinato dalle date di inizio e fine."
+                "è determinato dalle date di apertura, scadenza e chiusura procedimento."
             ),
         ),
         required=False,

@@ -73,6 +73,14 @@ Tile
 
 In order to use layout bandi for tile is necessary have installed collective.tiles.collection product.
 
+Behvaiors
+=========
+
+redturtle.bandi.forced_state
+----------------------------
+
+This behavior allows to set the forced state of an announcement.
+
 plone.restapi integrations
 ==========================
 
