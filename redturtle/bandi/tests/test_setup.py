@@ -11,7 +11,7 @@ import unittest
 
 try:
     from Products.CMFPlone.utils import get_installer
-except ImportError:
+except ImportError:  # pragma: no cover
     get_installer = None
 
 
@@ -50,12 +50,18 @@ class TestUninstall(unittest.TestCase):
             self.installer = api.portal.get_tool("portal_quickinstaller")
         roles_before = api.user.get_roles(TEST_USER_ID)
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        self.installer.uninstallProducts(["redturtle.bandi"])
+        if hasattr(self.installer, "uninstall_product"):
+            self.installer.uninstall_product("redturtle.volto")
+        else:
+            self.installer.uninstallProducts(["redturtle.volto"])
         setRoles(self.portal, TEST_USER_ID, roles_before)
 
     def test_product_uninstalled(self):
         """Test if redturtle.bandi is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled("redturtle.bandi"))
+        if hasattr(self.installer, "is_product_installed"):
+            self.assertFalse(self.installer.is_product_installed("redturtle.volto"))
+        else:
+            self.assertFalse(self.installer.isProductInstalled("redturtle.volto"))
 
     def test_browserlayer_removed(self):
         """Test that IRedturtleBandiLayer is removed."""
