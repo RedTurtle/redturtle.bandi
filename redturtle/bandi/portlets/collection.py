@@ -8,59 +8,58 @@ from plone.portlet.collection.collection import ICollectionPortlet
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from redturtle.bandi import bandiMessageFactory as _
 from zope import schema
-from zope.component import getMultiAdapter, getUtility
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 
 
 class IBandoCollectionPortlet(ICollectionPortlet):
-    """A portlet which renders the results of a collection object.
-    """
+    """A portlet which renders the results of a collection object."""
 
     show_more_text = schema.TextLine(
-        title=_(u"Other text"),
-        description=_(u"Alternative text to show in 'other' link."),
+        title=_("Other text"),
+        description=_("Alternative text to show in 'other' link."),
         required=True,
-        default=u"Altro\u2026",
+        default="Altro\u2026",
     )
 
     show_more_path = schema.Choice(
-        title=_(u"Internal link"),
+        title=_("Internal link"),
         description=_(
-            u"Insert an internal link. This field override external link field"
+            "Insert an internal link. This field override external link field"
         ),
         required=False,
         source=CatalogSource(),
     )
 
     show_description = schema.Bool(
-        title=u"Mostra descrizione", required=True, default=False
+        title="Mostra descrizione", required=True, default=False
     )
 
     show_tipologia_bando = schema.Bool(
-        title=u"Mostra tipologia bando", required=True, default=False
+        title="Mostra tipologia bando", required=True, default=False
     )
 
     show_effective = schema.Bool(
-        title=u"Mostra data di pubblicazione", required=True, default=False
+        title="Mostra data di pubblicazione", required=True, default=False
     )
 
     show_scadenza_bando = schema.Bool(
-        title=u"Mostra data di scadenza", required=True, default=False
+        title="Mostra data di scadenza", required=True, default=False
     )
 
 
 @implementer(IBandoCollectionPortlet)
 class Assignment(base.Assignment):
-
     """
     Portlet assignment.
     This is what is actually managed through the portlets UI and associated
     with columns.
     """
 
-    header = u""
+    header = ""
     target_collection = None
     limit = None
     show_more = True
@@ -68,7 +67,7 @@ class Assignment(base.Assignment):
     # parametri da ripulire
     def __init__(
         self,
-        header=u"",
+        header="",
         target_collection=None,
         limit=None,
         show_more=True,
@@ -116,7 +115,6 @@ class Assignment(base.Assignment):
 
 
 class Renderer(base.Renderer):
-
     """Portlet renderer.
 
     This is registered in configure.zcml. The referenced page template is
@@ -189,8 +187,7 @@ class Renderer(base.Renderer):
         return resultList
 
     def isValidDeadline(self, date):
-        """
-        """
+        """ """
         if not date:
             return False
         if date.Date() == "2100/12/31":
@@ -199,13 +196,12 @@ class Renderer(base.Renderer):
         return True
 
     def isTipologiaValid(self, tipologia_bando):
-        """
-        """
+        """ """
         return tipologia_bando in [x.value for x in self.voc_tipologia._terms]
 
     @memoize
     def collection(self):
-        """ get the collection the portlet is pointing to"""
+        """get the collection the portlet is pointing to"""
 
         # collection_path = self.data.target_collection
         # if not collection_path:
@@ -234,13 +230,11 @@ class Renderer(base.Renderer):
             # of the day-after, if time is not provided
             date = date - 1
             long_format = False
-        return api.portal.get_localized_time(
-            datetime=date, long_format=long_format
-        )
+        return api.portal.get_localized_time(datetime=date, long_format=long_format)
 
     def portal(self):
         portal_state = getMultiAdapter(
-            (self.context, self.request), name=u"plone_portal_state"
+            (self.context, self.request), name="plone_portal_state"
         )
         return portal_state.portal()
 
@@ -250,29 +244,23 @@ class Renderer(base.Renderer):
         """
         scadenza_bando = bando.scadenza_bando
         chiusura_procedimento_bando = bando.chiusura_procedimento_bando
-        state = ("open", translate(_(u"Open"), context=self.request))
+        state = ("open", translate(_("Open"), context=self.request))
         if scadenza_bando and scadenza_bando.isPast():
-            if (
-                chiusura_procedimento_bando
-                and chiusura_procedimento_bando.isPast()
-            ):
+            if chiusura_procedimento_bando and chiusura_procedimento_bando.isPast():
                 state = (
                     "closed",
-                    translate(_(u"Closed"), context=self.request),
+                    translate(_("Closed"), context=self.request),
                 )
             else:
                 state = (
                     "inProgress",
-                    translate(_(u"In progress"), context=self.request),
+                    translate(_("In progress"), context=self.request),
                 )
         else:
-            if (
-                chiusura_procedimento_bando
-                and chiusura_procedimento_bando.isPast()
-            ):
+            if chiusura_procedimento_bando and chiusura_procedimento_bando.isPast():
                 state = (
                     "closed",
-                    translate(_(u"Closed"), context=self.request),
+                    translate(_("Closed"), context=self.request),
                 )
 
         return state
@@ -286,7 +274,6 @@ class Renderer(base.Renderer):
 
 
 class AddForm(formhelper.AddForm):
-
     """Portlet add form.
 
     This is registered in configure.zcml. The form_fields variable tells
@@ -296,17 +283,14 @@ class AddForm(formhelper.AddForm):
 
     schema = IBandoCollectionPortlet
 
-    label = _(u"Add Bandi Portlet")
-    description = _(
-        u"This portlet display a listing of bandi from a Collection."
-    )
+    label = _("Add Bandi Portlet")
+    description = _("This portlet display a listing of bandi from a Collection.")
 
     def create(self, data):
         return Assignment(**data)
 
 
 class EditForm(formhelper.EditForm):
-
     """Portlet edit form.
 
     This is registered with configure.zcml. The form_fields variable tells
@@ -315,8 +299,5 @@ class EditForm(formhelper.EditForm):
 
     schema = IBandoCollectionPortlet
 
-    label = _(u"Edit Bandi Portlet")
-    description = _(
-        u"This portlet display a listing of bandi from a Collection."
-    )
-
+    label = _("Edit Bandi Portlet")
+    description = _("This portlet display a listing of bandi from a Collection.")

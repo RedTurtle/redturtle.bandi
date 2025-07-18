@@ -6,6 +6,7 @@ from redturtle.bandi.interfaces.settings import IBandoSettings
 
 import pytz
 
+
 default_profile = "profile-redturtle.bandi:default"
 
 
@@ -191,8 +192,8 @@ def migrate_to_2102(context):
 
 def migrate_to_2200(context):
     from Acquisition import aq_base
-    from plone.dexterity.utils import iterSchemata
     from copy import deepcopy
+    from plone.dexterity.utils import iterSchemata
     from zope.schema import getFields
 
     try:

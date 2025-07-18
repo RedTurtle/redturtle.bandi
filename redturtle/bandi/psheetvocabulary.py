@@ -23,7 +23,7 @@ class PropertySheetVocabulary(object):
 
     def iter_property_terms(self, context):
         prop_sheet = getattr(
-            getToolByName(context, 'portal_properties'), self.sheet_name, None
+            getToolByName(context, "portal_properties"), self.sheet_name, None
         )
         if prop_sheet is None:
             raise VocabularyNotFoundError
@@ -34,8 +34,8 @@ class PropertySheetVocabulary(object):
 
         ret = []
         for line in prop_lines:
-            if '|' in line:
-                value, title = line.split('|', 1)
+            if "|" in line:
+                value, title = line.split("|", 1)
             else:
                 value = title = line
             ret.append((value.strip(), title.strip()))
@@ -50,4 +50,3 @@ class PropertySheetVocabulary(object):
         return SimpleVocabulary(
             [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in terms]
         )
-

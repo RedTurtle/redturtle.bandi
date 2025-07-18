@@ -32,41 +32,41 @@ class IBandoSchema(model.Schema):
 
     # fields
     riferimenti_bando = RichText(
-        title=_("riferimenti_bando_label", default=u"References"),
-        description=_("riferimenti_bando_help", default=u""),
+        title=_("riferimenti_bando_label", default="References"),
+        description=_("riferimenti_bando_help", default=""),
         required=False,
     )
     apertura_bando = schema.Datetime(
-        title=_("apertura_bando_label", default=u"Opening date"),
+        title=_("apertura_bando_label", default="Opening date"),
         description=_(
             "apertura_bando_help",
-            default=u"Date and time of the opening of the announcement. Use "
-            u"this field if you want to set a specific opening date. "
-            u"If not set, the announcement will be open immediately.",
+            default="Date and time of the opening of the announcement. Use "
+            "this field if you want to set a specific opening date. "
+            "If not set, the announcement will be open immediately.",
         ),
         required=False,
     )
     chiusura_procedimento_bando = schema.Date(
         title=_(
             "chiusura_procedimento_bando_label",
-            default=u"Closing date procedure",
+            default="Closing date procedure",
         ),
-        description=_("chiusura_procedimento_bando_help", default=u""),
+        description=_("chiusura_procedimento_bando_help", default=""),
         required=False,
     )
 
     scadenza_bando = schema.Datetime(
-        title=_("scadenza_bando_label", default=u"Expiration date and time"),
+        title=_("scadenza_bando_label", default="Expiration date and time"),
         description=_(
             "scadenza_bando_help",
-            default=u"Deadline to participate in the announcement",
+            default="Deadline to participate in the announcement",
         ),
         required=False,
     )
 
     ente_bando = schema.Tuple(
-        title=_(u"ente_label", default=u"Authority"),
-        description=_(u"ente_help", default=u"Select some authorities."),
+        title=_("ente_label", default="Authority"),
+        description=_("ente_help", default="Select some authorities."),
         required=False,
         defaultFactory=getDefaultEnte,
         value_type=schema.TextLine(),
@@ -74,14 +74,14 @@ class IBandoSchema(model.Schema):
     )
 
     destinatari = schema.List(
-        title=_("destinatari_label", default=u"Recipients"),
+        title=_("destinatari_label", default="Recipients"),
         description=_("destinatari_help", default=""),
         required=True,
         value_type=schema.Choice(vocabulary="redturtle.bandi.destinatari.vocabulary"),
     )
 
     tipologia_bando = schema.Choice(
-        title=_("tipologia_bando_label", default=u"Announcement type"),
+        title=_("tipologia_bando_label", default="Announcement type"),
         description=_("tipologia_bando_help", default=""),
         vocabulary="redturtle.bandi.tipologia.vocabulary",
         required=True,

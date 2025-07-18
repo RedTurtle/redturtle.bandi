@@ -4,8 +4,10 @@ from plone import api
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from six.moves.urllib.parse import quote
-from zope.component import getUtility, queryUtility
+from zope.component import getUtility
+from zope.component import queryUtility
 from zope.schema.interfaces import IVocabularyFactory
+
 
 try:
     from collective.solr.interfaces import ISolrConnectionConfig

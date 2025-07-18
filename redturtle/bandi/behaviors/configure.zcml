@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="redturtle.bandi"
+    >
+
+
+  <plone:behavior
+      name="redturtle.bandi.forced_state"
+      title="Possibilità di impostare lo stato del bando"
+      factory=".force.ForcedState"
+      provides=".force.IForcedState"
+      marker=".force.IForcedState"
+      />
+</configure>

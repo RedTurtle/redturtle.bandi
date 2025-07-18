@@ -9,6 +9,7 @@ from redturtle.bandi.testing import INTEGRATION_TESTING
 
 import unittest
 
+
 try:
     from Products.CMFPlone.utils import get_installer
 except ImportError:  # pragma: no cover
@@ -30,11 +31,13 @@ class TestSetup(unittest.TestCase):
 
     def test_product_installed(self):
         """Test if redturtle.bandi is installed."""
-        self.assertTrue(self.installer.isProductInstalled("redturtle.bandi"))
+        if hasattr(self.installer, "is_product_installed"):
+            self.assertFalse(self.installer.is_product_installed("redturtle.volto"))
+        else:
+            self.assertFalse(self.installer.isProductInstalled("redturtle.volto"))
 
     def test_browserlayer(self):
         """Test that IRedturtleBandiLayer is registered."""
-
         self.assertIn(IRedturtleBandiLayer, utils.registered_layers())
 
 

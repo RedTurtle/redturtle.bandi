@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
+# importo il datetime di python
+from datetime import datetime
 from DateTime import DateTime
 from plone.indexer.decorator import indexer
 from redturtle.bandi.interfaces.bando import IBando
 from redturtle.bandi.vocabularies import TipologiaBandoVocabulary
 
-# importo il datetime di python
-from datetime import datetime
 
 # funzione che riceve un date e torna un datetime con l'ora a zero
 
@@ -64,7 +64,7 @@ def ente_bando(object, **kw):
 @indexer(IBando)
 def tipologia_bando(object, **kw):
     return getattr(object, "tipologia_bando", None)
-    
+
 
 @indexer(IBando)
 def tipologia_bando_label(object, **kw):
