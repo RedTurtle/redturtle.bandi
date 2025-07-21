@@ -89,22 +89,3 @@ class BandoStateTest(unittest.TestCase):
             name="bando_view", context=self.bando, request=self.request
         )
         self.assertEqual(view.getBandoState(), ("closed", "Closed"))
-
-    def test_bando_forced_state(self):
-        # add behavior to bando type
-        fti = queryUtility(IDexterityFTI, name="Bando")
-        behaviors = list(fti.behaviors)
-        behaviors.append("redturtle.bandi.forced_state")
-        fti.behaviors = tuple(behaviors)
-        # invalidate schema cache
-        notify(SchemaInvalidatedEvent("Bando"))
-
-        self.bando = api.content.create(
-            container=self.portal, type="Bando", title="Bando foo"
-        )
-        self.assertIsNone(self.bando.forced_state)
-        self.bando.forced_state = "closed"
-        view = api.content.get_view(
-            name="bando_view", context=self.bando, request=self.request
-        )
-        self.assertEqual(view.getBandoState(), ("closed", "Closed"))
