@@ -6,7 +6,6 @@ from plone.dexterity.browser import edit
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.Five import BrowserView
 from redturtle.bandi import bandiMessageFactory as _
-from redturtle.bandi.behaviors.force import IForcedState
 from redturtle.bandi.config import STATES
 from redturtle.bandi.interfaces import IBandoFolderDeepening
 from z3c.form import field
@@ -254,14 +253,6 @@ class BandoView(BrowserView):
         """
         return right bando state
         """
-        if IForcedState.providedBy(self.context):
-            forced_state = getattr(self.context, "forced_state", None)
-            if forced_state in STATES:
-                return (
-                    forced_state,
-                    translate(STATES[forced_state]["label"], context=self.request),
-                )
-
         apertura_bando = getattr(self.context, "apertura_bando", None)
         scadenza_bando = getattr(self.context, "scadenza_bando", None)
         chiusura_procedimento_bando = getattr(
