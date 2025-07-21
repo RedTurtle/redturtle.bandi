@@ -6,7 +6,6 @@ from plone.dexterity.browser import edit
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.Five import BrowserView
 from redturtle.bandi import bandiMessageFactory as _
-from redturtle.bandi.config import STATES
 from redturtle.bandi.interfaces import IBandoFolderDeepening
 from z3c.form import field
 from zope.component import getMultiAdapter
