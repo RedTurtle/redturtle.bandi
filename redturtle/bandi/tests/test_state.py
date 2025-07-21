@@ -4,11 +4,7 @@ from datetime import timedelta
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.dexterity.interfaces import IDexterityFTI
-from plone.dexterity.schema import SchemaInvalidatedEvent
 from redturtle.bandi.testing import INTEGRATION_TESTING
-from zope.component import queryUtility
-from zope.event import notify
 
 import unittest
 
