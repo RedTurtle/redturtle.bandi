@@ -7,8 +7,8 @@ from zope.interface import implementer
 
 @implementer(IContextState)
 class ContextState(BaseClass):
-    """modifica il metodo Folder, per poter aggiungere elementi al documento anche quando è 
-       impostato come vista predefinita
+    """modifica il metodo Folder, per poter aggiungere elementi al documento anche quando è
+    impostato come vista predefinita
     """
 
     def folder(self):
@@ -16,4 +16,3 @@ class ContextState(BaseClass):
             return aq_inner(self.context)
         else:
             return self.parent()
-

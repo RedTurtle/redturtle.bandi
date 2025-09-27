@@ -17,8 +17,8 @@ from zope.schema.interfaces import IVocabularyFactory
 
 
 try:
-    from plone.restapi.serializer.utils import uid_to_url
     from plone.restapi.serializer.converters import json_compatible
+    from plone.restapi.serializer.utils import uid_to_url
 
     HAS_PLONERESTAPI = True
 except ImportError:
@@ -156,7 +156,7 @@ class BandoView(BrowserView):
         # probabilmente legato al fatto che i link ora sono creati via
         # api e non da interfaccia Plone (?)
         if data["url"].startswith(f"/{siteid}"):
-            data["url"] = data["url"][len(siteid) + 1 :]
+            data["url"] = data["url"][len(siteid) + 1 :]  # noqa: E203
             if HAS_PLONERESTAPI:
                 data["url"] = uid_to_url(data["url"])
         return data

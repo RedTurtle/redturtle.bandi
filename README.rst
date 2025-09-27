@@ -1,3 +1,26 @@
+
+===============
+redturtle.bandi
+===============
+
+|python| |version| |ci| |downloads| |license|
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/redturtle.bandi.svg
+  :target: https://pypi.python.org/pypi/redturtle.bandi/
+
+.. |version| image:: http://img.shields.io/pypi/v/redturtle.bandi.svg
+  :target: https://pypi.python.org/pypi/redturtle.bandi
+
+.. |ci| image:: https://github.com/RedTurtle/redturtle.bandi/actions/workflows/test.yml/badge.svg
+  :target: https://github.com/RedTurtle/redturtle.bandi/actions
+
+.. |downloads| image:: https://img.shields.io/pypi/dm/redturtle.bandi.svg
+   :target: https://pypi.org/project/redturtle.bandi/
+
+.. |license| image:: https://img.shields.io/pypi/l/redturtle.bandi.svg
+    :target: https://pypi.org/project/redturtle.bandi/
+    :alt: License
+
 Introduction
 ============
 
@@ -72,6 +95,7 @@ Tile
 ====
 
 In order to use layout bandi for tile is necessary have installed collective.tiles.collection product.
+
 
 plone.restapi integrations
 ==========================

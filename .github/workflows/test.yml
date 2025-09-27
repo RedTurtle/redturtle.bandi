@@ -8,11 +8,15 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python: ["3.8"]
-        plone: ["52"]
-        # exclude:
-        #   - python: "3.7"
-        #     plone: "51"
+        python: ["3.8", "3.11"]
+        plone: ["60"]
+        # temporaneamente disabilitati test su plone 5.2
+        # plone: ["52", "60"]
+        exclude:
+           - python: "3.8"
+             plone: "60"
+           - python: "3.11"
+             plone: "52"
     steps:
       - uses: actions/checkout@v4
       - name: Cache eggs
@@ -26,7 +30,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt -c constraints_plone${{ matrix.plone }}.txt
+          pip install -r requirements_${{ matrix.plone }}.txt
           cp test_plone${{ matrix.plone }}.cfg buildout.cfg
       - name: Install buildout
         run: |

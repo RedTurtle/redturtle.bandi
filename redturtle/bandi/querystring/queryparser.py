@@ -1,6 +1,9 @@
-import DateTime
 from collections import namedtuple
-from plone.app.querystring.queryparser import _lessThan, _largerThan
+from plone.app.querystring.queryparser import _largerThan
+from plone.app.querystring.queryparser import _lessThan
+
+import DateTime
+
 
 Row = namedtuple("Row", ["index", "operator", "values"])
 

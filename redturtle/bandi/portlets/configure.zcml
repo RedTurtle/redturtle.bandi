@@ -1,7 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="redturtle.bandi">
+    i18n_domain="redturtle.bandi"
+    >
 
   <!-- Ensure Plone's portlets ZCML has already been processed;
        without this, we may get a permission lookup error -->
@@ -11,11 +12,11 @@
       name="redturtle.bandi.portlets.collection.BandoCollectionPortlet"
       interface=".collection.IBandoCollectionPortlet"
       assignment=".collection.Assignment"
-      view_permission="zope2.View"
-      edit_permission="redturtle.bandi.addBandiPortlet"
       renderer=".collection.Renderer"
       addview=".collection.AddForm"
       editview=".collection.EditForm"
+      view_permission="zope2.View"
+      edit_permission="redturtle.bandi.addBandiPortlet"
       />
 
 </configure>

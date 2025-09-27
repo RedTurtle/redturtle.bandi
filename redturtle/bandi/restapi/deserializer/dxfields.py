@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from plone.app.dexterity.behaviors.metadata import IPublication
 from plone.app.event.base import default_timezone
-from redturtle.bandi.interfaces import IBando
 from plone.restapi.deserializer.dxfields import (
     DatetimeFieldDeserializer as DefaultDatetimeFieldDeserializer,
 )
 from plone.restapi.interfaces import IFieldDeserializer
 from pytz import timezone
 from pytz import utc
+from redturtle.bandi.interfaces import IBando
 from redturtle.bandi.interfaces.browserlayer import IRedturtleBandiLayer
 from z3c.form.interfaces import IDataManager
 from zope.component import adapter

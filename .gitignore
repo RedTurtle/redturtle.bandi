@@ -31,3 +31,4 @@ local/
 .sass-cache/
 __pycache__
 .python-version
+pyvenv.cfg
