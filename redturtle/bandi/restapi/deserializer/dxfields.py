@@ -32,7 +32,7 @@ class DatetimeFieldDeserializer(DefaultDatetimeFieldDeserializer):
         else:
             dm = queryMultiAdapter((self.context, self.field), IDataManager)
             current = dm.get()
-            if current is not None:
+            if current is not None and hasattr(current, "tzinfo"):
                 tzinfo = current.tzinfo
             else:
                 if self.field.getName() == "scadenza_bando":
