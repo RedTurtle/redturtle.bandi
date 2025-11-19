@@ -201,7 +201,7 @@ def migrate_to_2200(context):  # noqa: C901
 
         HAS_BLOCKS_FIELD = True
     except ImportError:
-        HAS_BLOCKS_FIELD = True
+        HAS_BLOCKS_FIELD = False
 
     bandi = api.content.find(portal_type="Bando")
     tot_results = len(bandi)

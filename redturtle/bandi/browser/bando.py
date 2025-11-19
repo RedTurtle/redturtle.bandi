@@ -87,7 +87,7 @@ class BandoView(BrowserView):
         """Retrieves all Folder Deppening objects contained in Structured Document"""
         struct_doc = self.context
         values = []
-        dfolders = struct_doc.getFolderContents(
+        dfolders = struct_doc.listFolderContents(
             contentFilter={"object_provides": IBandoFolderDeepening.__identifier__}
         )
         for df in dfolders:
@@ -96,8 +96,8 @@ class BandoView(BrowserView):
                     dict(
                         title=df.Title,
                         description=df.Description,
-                        url=df.getURL(),
-                        path=df.getPath(),
+                        url=df.absolute_url(),
+                        path="/".join(df.getPhysicalPath()),
                     )
                 )
         return values
