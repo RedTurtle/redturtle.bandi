@@ -276,6 +276,12 @@ def migrate_to_2200(context):  # noqa: C901
                     value = deepcopy(field.get(item))
                     if not value:
                         continue
+                    if isinstance(value, str):
+                        # invalid value
+                        setattr(
+                            item, name, {"blocks": {}, "blocks_layout": {"items": []}}
+                        )
+                        continue
                     blocks = value.get("blocks", {})
                     if blocks:
                         fix_listing(blocks)
