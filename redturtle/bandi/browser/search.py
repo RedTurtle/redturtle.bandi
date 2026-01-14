@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from plone import api
+from plone.api.exc import InvalidParameterError
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from six.moves.urllib.parse import quote
@@ -109,6 +110,8 @@ class SearchBandi(BrowserView):
                 }
         if "SearchableText" in self.request.form and not SearchableText:
             del query["SearchableText"]
+        if "portal_type" not in query:
+            query["portal_type"] = "Bando"
         return pc(**query)
 
     @property
@@ -141,10 +144,14 @@ class SearchBandi(BrowserView):
     def getBandoState(self, brain):
         """ """
         bando = brain.getObject()
-        view = api.content.get_view(
-            name="bando_view", context=bando, request=self.request
-        )
-        return view.getBandoState()
+        try:
+            view = api.content.get_view(
+                name="bando_view", context=bando, request=self.request
+            )
+            return view.getBandoState()
+        except InvalidParameterError:
+            # if for some reason there are not only Bando objects in results, do not break the view
+            return ()
 
     def isValidDeadline(self, date):
         """ """
