@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from plone import api
+from plone.api.exc import InvalidParameterError
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from six.moves.urllib.parse import quote
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.schema.interfaces import IVocabularyFactory
-from plone.api.exc import InvalidParameterError
+
 
 try:
     from collective.solr.interfaces import ISolrConnectionConfig
