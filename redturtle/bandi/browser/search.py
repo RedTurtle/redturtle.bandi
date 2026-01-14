@@ -150,6 +150,7 @@ class SearchBandi(BrowserView):
         try:
             return view.getBandoState()
         except InvalidParameterError:
+            # if for some reason there are not only Bando objects in results, do not break the view
             return ()
 
     def isValidDeadline(self, date):
