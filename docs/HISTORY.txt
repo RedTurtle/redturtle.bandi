@@ -4,14 +4,16 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
-- gestione deserizlizer per datetime, nel caso il campo abbia avvutto
-  un cambianeto di ttipo (datte->datetime)
+- gestione deserizlizer per datetime, nel caso il campo abbia avuto
+  un cambiamento di tipo (date->datetime)
   [mamico]
 - lint/isort
   [mamico]
 - Fix upgrade-step to handle malformed data.
   [cekk]
-
+- Fix search_bandi view to work only with Bando types and not break.
+  [cekk]
+  
 1.6.0 (2025-03-13)
 ------------------
 

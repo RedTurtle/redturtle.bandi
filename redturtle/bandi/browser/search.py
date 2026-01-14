@@ -7,7 +7,7 @@ from six.moves.urllib.parse import quote
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.schema.interfaces import IVocabularyFactory
-
+from plone.api.exc import InvalidParameterError
 
 try:
     from collective.solr.interfaces import ISolrConnectionConfig
@@ -109,6 +109,8 @@ class SearchBandi(BrowserView):
                 }
         if "SearchableText" in self.request.form and not SearchableText:
             del query["SearchableText"]
+        if "portal_type" not in query:
+            query["portal_type"] = "Bando"
         return pc(**query)
 
     @property
@@ -144,7 +146,10 @@ class SearchBandi(BrowserView):
         view = api.content.get_view(
             name="bando_view", context=bando, request=self.request
         )
-        return view.getBandoState()
+        try:
+            return view.getBandoState()
+        except InvalidParameterError:
+            return ()
 
     def isValidDeadline(self, date):
         """ """
