@@ -10,6 +10,7 @@ from redturtle.bandi.testing import INTEGRATION_TESTING
 
 import unittest
 
+
 try:
     from Products.CMFPlone.utils import get_installer
 except ImportError:  # pragma: no cover

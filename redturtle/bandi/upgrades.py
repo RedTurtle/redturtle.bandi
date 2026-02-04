@@ -6,6 +6,7 @@ from redturtle.bandi.interfaces.settings import IBandoSettings
 
 import pytz
 
+
 default_profile = "profile-redturtle.bandi:default"
 
 
