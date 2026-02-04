@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
 
-from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.browserlayer import utils
-from redturtle.bandi.interfaces.browserlayer import IRedturtleBandiLayer
-from redturtle.bandi.testing import INTEGRATION_TESTING
-
 import unittest
 
+from plone import api
+from plone.app.testing import TEST_USER_ID, setRoles
+from plone.browserlayer import utils
+
+from redturtle.bandi.interfaces.browserlayer import IRedturtleBandiLayer
+from redturtle.bandi.testing import INTEGRATION_TESTING
 
 try:
     from Products.CMFPlone.utils import get_installer

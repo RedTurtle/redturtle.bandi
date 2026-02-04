@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.app.registry.browser import controlpanel
+
 from redturtle.bandi import bandiMessageFactory as _
 from redturtle.bandi.interfaces.settings import IBandoSettings
 

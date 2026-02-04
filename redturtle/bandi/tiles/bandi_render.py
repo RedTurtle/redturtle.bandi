@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from collective.tiles.collection.interfaces import ICollectionTileRenderer
 from Products.Five.browser import BrowserView
-from redturtle.bandi import bandiMessageFactory as _
 from zope.interface import implementer
+
+from redturtle.bandi import bandiMessageFactory as _
 
 
 @implementer(ICollectionTileRenderer)

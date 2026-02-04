@@ -2,8 +2,7 @@
 from plone import api
 from Products.Five import BrowserView
 from zope.component import getUtility
-from zope.interface import implementer
-from zope.interface import Interface
+from zope.interface import Interface, implementer
 from zope.schema.interfaces import IVocabularyFactory
 
 

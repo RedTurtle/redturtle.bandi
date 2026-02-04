@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from plone.app.testing import login
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
-from redturtle.bandi.testing import FUNCTIONAL_TESTING
-
 import unittest
+
+from plone import api
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
+
+from redturtle.bandi.testing import FUNCTIONAL_TESTING
 
 
 class TestCollectionCriteria(unittest.TestCase):
