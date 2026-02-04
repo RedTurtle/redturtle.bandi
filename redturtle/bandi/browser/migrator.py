@@ -13,7 +13,6 @@ from redturtle.bandi.interfaces.bandofolderdeepening import (
 from zope.interface import alsoProvides
 from zope.interface import noLongerProvides
 
-
 try:
     from rer.bandi.interfaces.bando import IBando as oldBandoInterface
     from rer.bandi.interfaces.bandofolderdeepening import (
@@ -25,7 +24,6 @@ except ImportError:
     HAS_RER_BANDI = False
 
 import logging
-
 
 logger = logging.getLogger(__name__)
 

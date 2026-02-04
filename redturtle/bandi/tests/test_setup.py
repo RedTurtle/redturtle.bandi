@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
+
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -8,7 +9,6 @@ from redturtle.bandi.interfaces.browserlayer import IRedturtleBandiLayer
 from redturtle.bandi.testing import INTEGRATION_TESTING
 
 import unittest
-
 
 try:
     from Products.CMFPlone.utils import get_installer

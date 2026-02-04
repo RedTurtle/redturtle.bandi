@@ -15,7 +15,6 @@ from zope.interface import implementer
 from zope.interface import Interface
 from zope.schema.interfaces import IVocabularyFactory
 
-
 try:
     from plone.restapi.serializer.converters import json_compatible
     from plone.restapi.serializer.utils import uid_to_url

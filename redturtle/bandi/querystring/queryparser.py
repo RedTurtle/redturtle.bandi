@@ -4,7 +4,6 @@ from plone.app.querystring.queryparser import _lessThan
 
 import DateTime
 
-
 Row = namedtuple("Row", ["index", "operator", "values"])
 
 

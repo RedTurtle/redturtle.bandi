@@ -8,7 +8,6 @@ from zope.component import getUtility
 from zope.component import queryUtility
 from zope.schema.interfaces import IVocabularyFactory
 
-
 try:
     from collective.solr.interfaces import ISolrConnectionConfig
 
