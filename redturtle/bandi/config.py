@@ -1,6 +1,5 @@
 from redturtle.bandi import _
 
-
 STATES = {
     "open": {
         "label": _("Open"),

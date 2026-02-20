@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
+import pytz
 from plone import api
 from plone.app.event.base import default_timezone
+
 from redturtle.bandi import logger
 from redturtle.bandi.interfaces.settings import IBandoSettings
-
-import pytz
-
 
 default_profile = "profile-redturtle.bandi:default"
 
@@ -191,8 +190,9 @@ def migrate_to_2102(context):
 
 
 def migrate_to_2200(context):  # noqa: C901
-    from Acquisition import aq_base
     from copy import deepcopy
+
+    from Acquisition import aq_base
     from plone.dexterity.utils import iterSchemata
     from zope.schema import getFields
 

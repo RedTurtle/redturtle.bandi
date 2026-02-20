@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.namedfile.file import NamedBlobFile
-from redturtle.bandi.testing import INTEGRATION_TESTING
-
 import os
 import unittest
+
+from plone import api
+from plone.app.testing import TEST_USER_ID, setRoles
+from plone.namedfile.file import NamedBlobFile
+
+from redturtle.bandi.testing import INTEGRATION_TESTING
 
 
 class BandoViewTest(unittest.TestCase):

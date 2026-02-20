@@ -9,13 +9,13 @@ from plone.app.vocabularies.catalog import CatalogSource
 from plone.memoize.instance import memoize
 from plone.portlet.collection.collection import ICollectionPortlet
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from redturtle.bandi import bandiMessageFactory as _
 from zope import schema
-from zope.component import getMultiAdapter
-from zope.component import getUtility
+from zope.component import getMultiAdapter, getUtility
 from zope.i18n import translate
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
+
+from redturtle.bandi import bandiMessageFactory as _
 
 
 class IBandoCollectionPortlet(ICollectionPortlet):
