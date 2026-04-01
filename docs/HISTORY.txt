@@ -1,7 +1,20 @@
 Changelog
 =========
 
-1.6.1 (unreleased)
+1.6.3 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+1.6.2 (2026-02-20)
+------------------
+- Fix upgrade-step to handle malformed data.
+  [cekk]
+- Traduzioni mancanti, black, isort, fix git test
+  [thesaintsimon]
+
+1.6.1 (2025-10-10)
 ------------------
 
 - gestione deserizlizer per datetime, nel caso il campo abbia avvutto

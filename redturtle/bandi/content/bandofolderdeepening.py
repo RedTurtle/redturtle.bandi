@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from plone.dexterity.content import Container
-from redturtle.bandi.interfaces.bandofolderdeepening import IBandoFolderDeepening
 from zope.interface import implementer
+
+from redturtle.bandi.interfaces.bandofolderdeepening import IBandoFolderDeepening
 
 
 @implementer(IBandoFolderDeepening)

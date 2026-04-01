@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+
 from plone import api
-from plone.dexterity.browser import add
-from plone.dexterity.browser import edit
+from plone.dexterity.browser import add, edit
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.Five import BrowserView
-from redturtle.bandi import bandiMessageFactory as _
-from redturtle.bandi.interfaces import IBandoFolderDeepening
 from z3c.form import field
-from zope.component import getMultiAdapter
-from zope.component import getUtility
+from zope.component import getMultiAdapter, getUtility
 from zope.i18n import translate
-from zope.interface import implementer
-from zope.interface import Interface
+from zope.interface import Interface, implementer
 from zope.schema.interfaces import IVocabularyFactory
 
+from redturtle.bandi import bandiMessageFactory as _
+from redturtle.bandi.interfaces import IBandoFolderDeepening
 
 try:
     from plone.restapi.serializer.converters import json_compatible

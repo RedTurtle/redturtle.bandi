@@ -4,28 +4,26 @@ from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFEditions.utilities import dereference
 from Products.Five import BrowserView
+from zope.interface import alsoProvides, noLongerProvides
+
 from redturtle.bandi.content.bando import Bando
 from redturtle.bandi.content.bandofolderdeepening import BandoFolderDeepening
 from redturtle.bandi.interfaces.bando import IBando as newBandoInterface
-from redturtle.bandi.interfaces.bandofolderdeepening import (
+from redturtle.bandi.interfaces.bandofolderdeepening import (  # noqa
     IBandoFolderDeepening as newFolderDeepeningInterface,
-)  # noqa
-from zope.interface import alsoProvides
-from zope.interface import noLongerProvides
-
+)
 
 try:
     from rer.bandi.interfaces.bando import IBando as oldBandoInterface
-    from rer.bandi.interfaces.bandofolderdeepening import (
+    from rer.bandi.interfaces.bandofolderdeepening import (  # noqa
         IBandoFolderDeepening as oldFolderDeepeningInterface,
-    )  # noqa
+    )
 
     HAS_RER_BANDI = True
 except ImportError:
     HAS_RER_BANDI = False
 
 import logging
-
 
 logger = logging.getLogger(__name__)
 

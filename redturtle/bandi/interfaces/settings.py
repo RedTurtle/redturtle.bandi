@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from redturtle.bandi import bandiMessageFactory as _
 from zope import schema
 from zope.interface import Interface
+
+from redturtle.bandi import bandiMessageFactory as _
 
 
 class IBandoSettings(Interface):

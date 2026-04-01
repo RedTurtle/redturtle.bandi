@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-from datetime import timedelta
-from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from redturtle.bandi.testing import INTEGRATION_TESTING
-
 import unittest
+from datetime import datetime, timedelta
+
+from plone import api
+from plone.app.testing import TEST_USER_ID, setRoles
+
+from redturtle.bandi.testing import INTEGRATION_TESTING
 
 
 class BandoStateTest(unittest.TestCase):

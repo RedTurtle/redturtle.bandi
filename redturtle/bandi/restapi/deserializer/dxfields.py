@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-
+import dateutil
+import pytz
 from plone.app.dexterity.behaviors.metadata import IPublication
 from plone.app.event.base import default_timezone
 from plone.restapi.deserializer.dxfields import (
     DatetimeFieldDeserializer as DefaultDatetimeFieldDeserializer,
 )
 from plone.restapi.interfaces import IFieldDeserializer
-from pytz import timezone
-from pytz import utc
-from redturtle.bandi.interfaces import IBando
-from redturtle.bandi.interfaces.browserlayer import IRedturtleBandiLayer
+from pytz import timezone, utc
 from z3c.form.interfaces import IDataManager
-from zope.component import adapter
-from zope.component import queryMultiAdapter
+from zope.component import adapter, queryMultiAdapter
 from zope.interface import implementer
 from zope.schema.interfaces import IDatetime
 
-import dateutil
-import pytz
+from redturtle.bandi.interfaces import IBando
+from redturtle.bandi.interfaces.browserlayer import IRedturtleBandiLayer
 
 
 @implementer(IFieldDeserializer)

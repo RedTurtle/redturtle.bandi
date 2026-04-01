@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from plone.restapi.controlpanels import RegistryConfigletPanel
-from redturtle.bandi.interfaces.settings import IBandoSettings
 from zope.component import adapter
 from zope.interface import Interface
+
+from redturtle.bandi.interfaces.settings import IBandoSettings
 
 
 @adapter(Interface, Interface)

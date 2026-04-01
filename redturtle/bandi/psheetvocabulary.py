@@ -2,8 +2,7 @@
 from Products.CMFCore.utils import getToolByName
 from zope.interface.declarations import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 
 class VocabularyNotFoundError(Exception):
