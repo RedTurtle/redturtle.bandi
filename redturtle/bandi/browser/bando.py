@@ -2,10 +2,8 @@
 from datetime import datetime
 
 from plone import api
-from plone.dexterity.browser import add, edit
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.Five import BrowserView
-from z3c.form import field
 from zope.component import getMultiAdapter, getUtility
 from zope.i18n import translate
 from zope.interface import Interface, implementer
@@ -21,44 +19,6 @@ try:
     HAS_PLONERESTAPI = True
 except ImportError:
     HAS_PLONERESTAPI = False
-
-
-class AddForm(add.DefaultAddForm):
-    def updateWidgets(self):
-        add.DefaultAddForm.updateWidgets(self)
-
-        for group in self.groups:
-            if group.label == "Settings":
-                manager = field.Fields(group.fields)
-                group.fields = manager.select(
-                    "IShortName.id",
-                    "IAllowDiscussion.allow_discussion",
-                    "IExcludeFromNavigation.exclude_from_nav",
-                    "ITableOfContents.table_of_contents",
-                )
-
-
-class AddView(add.DefaultAddView):
-    form = AddForm
-
-
-class EditForm(edit.DefaultEditForm):
-    def updateWidgets(self):
-        edit.DefaultEditForm.updateWidgets(self)
-
-        for group in self.groups:
-            if group.label == "Settings":
-                manager = field.Fields(group.fields)
-                group.fields = manager.select(
-                    "IShortName.id",
-                    "IAllowDiscussion.allow_discussion",
-                    "IExcludeFromNavigation.exclude_from_nav",
-                    "ITableOfContents.table_of_contents",
-                )
-
-
-class EditView(edit.DefaultEditView):
-    form = EditForm
 
 
 class IBandoView(Interface):

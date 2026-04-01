@@ -10,24 +10,6 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
-  <!-- custom Add form per bandi -->
-  <adapter
-      factory=".bando.AddView"
-      provides="zope.publisher.interfaces.browser.IBrowserPage"
-      for="Products.CMFCore.interfaces.IFolderish
-           redturtle.bandi.interfaces.browserlayer.IRedturtleBandiLayer
-           plone.dexterity.interfaces.IDexterityFTI"
-      name="Bando"
-      />
-
-  <!-- custom Edit form per bandi -->
-  <browser:page
-      name="edit"
-      for="redturtle.bandi.interfaces.bando.IBando"
-      class=".bando.EditView"
-      permission="zope2.View"
-      layer="redturtle.bandi.interfaces.browserlayer.IRedturtleBandiLayer"
-      />
 
   <browser:page
       name="bando_view"
