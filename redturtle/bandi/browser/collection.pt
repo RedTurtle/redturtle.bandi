@@ -8,42 +8,24 @@
 
 <body>
 
-    <div metal:fill-slot="main">
-    <metal:main-macro define-macro="main"
-                      tal:define="templateId template/getId;
-                                  test python:lambda cond, a, b: [b,a][cond]
-                                  ">
-
-        <div tal:replace="structure provider:plone.abovecontenttitle" />
-
-        <h1 metal:use-macro="here/kss_generic_macros/macros/generic_title_view">
-            Title or id
-        </h1>
-
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
-
-        <p metal:use-macro="here/kss_generic_macros/macros/generic_description_view">
-            Description
-        </p>
-
-        <div tal:replace="structure provider:plone.abovecontentbody" />
-
-        <div class="document-text"
-             tal:define="text context/text|nothing"
-             tal:condition="text"
-             tal:content="structure text/output" />
+  <metal:content-core fill-slot="content-core">
+    <metal:content-core define-macro="content-core">
+      <div class="document-text"
+            tal:define="text context/text|nothing"
+            tal:condition="text"
+            tal:content="structure text/output" />
 
         <metal:listingmacro define-macro="listing">
-            <tal:foldercontents define="contentFilter contentFilter|request/contentFilter|nothing;
-                                b_start python:request.get('b_start', 0);
-                                batch python:context.results(b_start=b_start);
-                                limit_display limit_display|request/limit_display|nothing;
-                                more_url more_url|request/more_url|string:folder_contents;
-                                use_view_action site_properties/typesUseViewActionInListings|python:();
-                                over_limit python: limit_display and len(batch) > limit_display;
-								                isAnon context/@@plone_portal_state/anonymous;
-                                allowAnonymousViewAbout python:context.portal_registry['plone.allow_anon_views_about'];
-                                show_about python:not isAnon or allowAnonymousViewAbout;">
+          <tal:foldercontents define="contentFilter contentFilter|request/contentFilter|nothing;
+                              b_start python:request.get('b_start', 0);
+                              batch python:context.results(b_start=b_start);
+                              limit_display limit_display|request/limit_display|nothing;
+                              more_url more_url|request/more_url|string:folder_contents;
+                              use_view_action site_properties/typesUseViewActionInListings|python:();
+                              over_limit python: limit_display and len(batch) > limit_display;
+                              isAnon context/@@plone_portal_state/anonymous;
+                              allowAnonymousViewAbout python:context.portal_registry['plone.allow_anon_views_about'];
+                              show_about python:not isAnon or allowAnonymousViewAbout;">
             <tal:listing condition="batch">
                 <div class="bandi-collection">
                   <div tal:repeat="item batch" class="bando-item">
@@ -89,23 +71,19 @@
                     </div>
                   </div>
                 </div>
-				<!-- Navigation -->
+                <!-- Navigation -->
                 <div metal:use-macro="here/batch_macros/macros/navigation" />
-			</tal:listing>
-            <metal:empty metal:define-slot="no_items_in_listing">
-                <p class="discreet"
-                   tal:condition="not: batch"
-                   i18n:translate="description_no_items_in_folder">
-                    There are currently no items in this folder.
-                </p>
-            </metal:empty>
-		    </tal:foldercontents>
+              </tal:listing>
+              <metal:empty metal:define-slot="no_items_in_listing">
+                  <p class="discreet"
+                      tal:condition="not: batch"
+                      i18n:translate="description_no_items_in_folder">
+                      There are currently no items in this folder.
+                  </p>
+              </metal:empty>
+		      </tal:foldercontents>
         </metal:listingmacro>
-
-        <div tal:replace="structure provider:plone.belowcontentbody" />
-
-    </metal:main-macro>
-    </div>
-
+  </metal:content-core>
+  </metal:content-core>
 </body>
 </html>
