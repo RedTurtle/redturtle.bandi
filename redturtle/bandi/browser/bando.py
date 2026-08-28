@@ -52,8 +52,8 @@ class BandoView(BrowserView):
             if not df.exclude_from_nav:
                 values.append(
                     dict(
-                        title=df.Title,
-                        description=df.Description,
+                        title=df.Title(),
+                        description=df.Description(),
                         url=df.absolute_url(),
                         path="/".join(df.getPhysicalPath()),
                     )

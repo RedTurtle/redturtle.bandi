@@ -4,7 +4,8 @@ Changelog
 1.6.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix that plone.dexterity.content.Item.Title and .Description are now methods.
+  [fedevancin]
 
 
 1.6.4 (2026-04-01)
