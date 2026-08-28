@@ -53,7 +53,11 @@ class BandoView(BrowserView):
                 values.append(
                     dict(
                         title=df.Title() if callable(df.Title) else df.Title,
-                        description=df.Description() if callable(df.Description) else df.Description,
+                        description=(
++                           df.Description()
++                           if callable(df.Description)
++                           else df.Description
++                       ),
                         url=df.absolute_url(),
                         path="/".join(df.getPhysicalPath()),
                     )
