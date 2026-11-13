@@ -22,12 +22,12 @@
  <property name="add_permission">cmf.AddPortalContent</property>
  <property name="klass">redturtle.bandi.content.bandofolderdeepening.BandoFolderDeepening</property>
  <property name="behaviors">
-  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.dexterity.behaviors.id.IShortName"/>
-  <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
-  <element value="plone.app.versioningbehavior.behaviors.IVersionable" />
-  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes" />
+  <element value="plone.dublincore"/>
+  <element value="plone.namefromtitle"/>
+  <element value="plone.shortname"/>
+  <element value="plone.excludefromnavigation"/>
+  <element value="plone.versioning" />
+  <element value="plone.constraintypes" />
  </property>
  <property name="schema">redturtle.bandi.interfaces.bandofolderdeepeningschema.IBandoFolderDeepeningSchema</property>
  <property name="model_source"></property>

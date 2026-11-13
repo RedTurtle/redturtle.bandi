@@ -93,5 +93,13 @@
       destination="2300"
       handler=".upgrades.migrate_to_2300"
       />
+  <gs:upgradeStep
+      title="Adjust content-type behavior names"
+      description="Convert old-style behavior names to short names"
+      profile="redturtle.bandi:default"
+      source="2300"
+      destination="2400"
+      handler=".upgrades.migrate_to_2400"
+      />
 
 </configure>
