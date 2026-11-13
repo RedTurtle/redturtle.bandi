@@ -4,6 +4,9 @@ Changelog
 1.6.5 (unreleased)
 ------------------
 
+- Convert old-style behavior names to short names for Bando and Bando Folder Deepening (upgrade-step 2400).
+  [cekk]
+
 - Fix that plone.dexterity.content.Item.Title and .Description are now methods.
   [fedevancin]
 
