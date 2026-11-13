@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6.5 (unreleased)
+1.6.5 (2026-11-13)
 ------------------
 
 - Convert old-style behavior names to short names for Bando and Bando Folder Deepening (upgrade-step 2400).
